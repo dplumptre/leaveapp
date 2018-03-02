@@ -1,0 +1,31 @@
+
+/* 
+navbar
+color
+
+ */
+
+.navbar-default {
+    background-color: #CD2122 !important;
+    border-color: #CD2122 !important;
+}
+
+
+.navbar-default .navbar-nav > li > a, .navbar-default .navbar-text {
+    color: #fff;
+}
+
+
+
+.btn-primary {
+    color: #fff;
+    background-color: #A39161 !important;
+    border-color: #A39161 !important;
+}
+
+
+.panel-info > .panel-heading {
+    color: #ffffff !important;
+    background-color: #A39161 !important;
+    border-color: #A39161 !important;
+}
