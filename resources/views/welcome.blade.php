@@ -9,7 +9,7 @@
 
                 <div class="panel-body" align="center">
                 @if(Auth::guest())
-                <i class="fa fa-leaf fa-5x" style="color: green"></i>
+                <img src="{{ asset('logo.png') }}"> 
                    <h4 style="line-height: 30px">Welcome to The Fountain Of Life Church <br />
                     Leave Application Portal. <br /> 
                    Kindly <a href="{{ url('/login') }}">Login</a> to Begin</h4>
