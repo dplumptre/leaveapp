@@ -145,7 +145,7 @@ class AdminsController extends Controller
 
 
 	public function all_users(){
-		$employees = User::orderBy('department', 'desc')->orderBy('role', 'desc')->paginate(50);
+		$employees = User::orderBy('department', 'desc')->orderBy('role', 'desc')->get();
 		return view('admins.users', compact('employees'));
 	}
 
