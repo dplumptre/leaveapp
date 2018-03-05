@@ -5,10 +5,9 @@
    
   <div class="row">
         <div class="col-md-10 col-md-offset-1">
+             @include('layouts.errors')
+        
             <div class="panel panel-default">
-                 @if (Session::has('status'))
-                    <div class="panel-heading" style="color: green" align="center">{{ Session::get('status') }}</div>
-                @endif
                         
                 <div class="panel-heading"><img src="{{ asset('setting.jpg') }}" style="padding-right: 10px">
                 ALL DEPARTMENTS</div>
@@ -23,7 +22,7 @@
                                         <th class="text-center"></th>
                                         <th class="text-center">Departments</th>
                             <th class="text-center"><a href="/admins/add_dept" data-toggle="tooltip" title="Add New Department"> 
-                            <img src="{{ asset('add_small.jpg') }}" alt="New User"></th>
+                               <i class="fa fa-plus-circle fa-2x"></i> 
                                     </tr>
                                 </thead>
                                 
@@ -36,7 +35,7 @@
                 <td class="text-center">{{ $department->name }}</td>
                 <td class="text-center">
     <a href="/admins/{{$department->id}}/delete_dept" onclick="javascript:return confirm('Are you sure to delete department?')"  data-toggle="tooltip" title="Delete Department">
-            <img src="{{ asset('delete_small.jpg') }}"  alt="Delete Department">
+            <i class="fa fa-trash fa-2" style="color: red"></i> 
     </a>
                 </td>
 

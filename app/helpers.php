@@ -47,6 +47,16 @@
          return $state;
   }
 
+function getAllowance($status){
+
+         if($status == 1){
+          echo "YES";
+         }
+
+         else{
+          echo  "*";
+         }
+  }
 
 
 

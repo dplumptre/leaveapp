@@ -2,12 +2,9 @@
 
 @section('content')
 <div class="container">
-            @if (Session::has('status'))
-                <div class="panel-heading" style="color: green; text-align: center;">
-                    <img src="{{ asset('info1.jpg') }}"><h5>{{ Session::get('status') }}</h5></div>
-             @endif
                          
     <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="panel-heading" align="center">   @include('layouts.errors') </div>
         <div class="panel panel-info">
             <div class="panel-heading">
                  <div class="panel-title">EDIT PROFILE </div>

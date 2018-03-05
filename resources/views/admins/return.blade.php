@@ -1,34 +1,35 @@
+<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables.css">
+      <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/css/jquery.dataTables_themeroller.css">
 @extends('layouts.app')
 
 @section('content')
     
 <div class="row">
         <div class="col-md-10 col-md-offset-1">
+                    <div class="panel-heading" align="center">   @include('layouts.errors') </div>
             <div class="panel panel-default">
-                 @if (Session::has('status'))
-                    <div class="panel-heading" align="center" style="color: green">{{ Session::get('status') }}</div>
-                @endif
+                    
                         
-                <div class="panel-heading"><img src="{{ asset('cal_sm.jpg') }}" style="padding-right: 10px">
+                <div class="panel-heading"><i class="fa fa-calendar fa-2x"  style="padding-right: 10px"></i> 
                 LEAVE RETURN DETAILS</div>
 
                 <div class="panel-body">
                                   
 
 
-<table class="table-responsive table table-bordered table-striped  js-dataTable-full-pagination">
+<table  id="myTable"  class="table-responsive table table-bordered table-striped" width="100%">
                                 <thead>
                                     <tr>
                                         <th class="text-center">#</th>
                                         <th class="text-center">Name</th>
-                                        <th class="text-center">Resumption Date</th>
-                                        <th class="text-center">Resumed on</th>
+                                        <th class="text-center">Resumption</th>
+                                        <th class="text-center">Date Resumed</th>
                                         <th class="text-center"></th>
                                         <th class="text-center">Reason</th>
-                                        <th class="text-center">HOD Signature</th>
-                                        <th class="text-center">HR/Admin Signature</th>
+                                        <th class="text-center">Unit Head</th>
+                                        <th class="text-center">HR/Admin</th>
                                         <th class="text-center">Remark</th>
-<th class="text-center"> <img src="{{ asset('confirm.png') }}" alt="Leave Return Confirmation"></th>
+<th class="text-center"> <i class="fa fa-check-circle" > </i> </th>
                                     </tr>
                                 </thead>
                                 
@@ -38,9 +39,9 @@
  @foreach($requests as $request)
           <tr>
                 <td class="text-center">{{$rows = $rows + 1 }}</td>
-                <td class="text-center">{{ $request->name }} </td>
+                <td class="text-center" style="width: 20%" >{{ $request->name }} </td>
                 <td class="text-center"><small>{{ date('d-M-Y ', strtotime($request->resumption_date)) }} </small></td>
-                <td class="text-center"><small>{{ date($request->resumed_on) }} </small></td>
+                <td class="text-center" style="width: 12%" ><small>{{ date($request->resumed_on) }} </small></td>
                 <td class="text-center"><b style="color: red">
 
                 <?php
@@ -55,27 +56,31 @@
 
 
                 </b></td>
-                <td class="text-center"> {{ $request->reason_unable }}</td>
-            <td class="text-center" style="color: green"> {{ $request->super_confirm_signature }}</td>
-                <td class="text-center"> {{ $request->hr_confirm_signature }} </td>
+                <td class="text-center" style="width: 15%" > {{ $request->reason_unable }}</td>
+            <td class="text-center"  style="width: 9%; color: green"> 
+                @if($request->super_confirm_signature)
+                    <i class="fa fa-check-circle" style="padding-left: 15px;"> </i> 
+                @else 
+                @endif
+            </td>
+                <td class="text-center"> 
+                    @if($request->hr_confirm_signature)
+                        <i class="fa fa-check" style="padding-left: 15px;"> </i> 
+                    @else 
+                    @endif
+                </td>
                 <td class="text-center"> {{ $request->admin_remark }} </td>
 
          
 <td class="text-center">
-   
-    <a href="/admins/{{$request->id}}/admin_confirm"  data-toggle="tooltip" title="HR Leave Return Confirmation">
-        <img src="{{ asset('check1.jpg') }}" alt="Leave Return Confirmation">
-    </a>
+   <a style="text-decoration: none; color: #ffffff" href="/admins/{{$request->id}}/admin_confirm"   data-toggle="tooltip" title="HR Confirmation" style> 
+       <div class="btn btn-warning btn-xs" > Confirm
+   </a> 
 </td>
 
 </tr>
                     @endforeach
             
-            <tr>
-                <td colspan="10" align="center">
-                    <div  class="btn btn-xs">  <?php echo $requests->links(); ?> </div>
-                </td>
-            </tr>
         </tbody>
     </table>
 

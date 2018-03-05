@@ -22,8 +22,8 @@
 
                     <table class="table" style="border: none;">
 <tr class="info"> <td> <b>WORK DETAILS </b></td> <td> </td>  <td></td> <td><div class="pull-right">
-    <a href="/admins/{{$users->id}}/edit" class="btn btn-primary btn-xs">Edit</a>
-    <a href="/admins/{{$users->id}}/delete" class="btn btn-danger btn-xs"  onclick="javascript:return confirm('Are you sure to delete user')">Delete</a> 
+    <a href="/admins/{{$users->id}}/edit"><i class="fa fa-edit fa-2x" style="padding-right: 8px; padding-left: 8px;"></i> </a>
+    <a href="/admins/{{$users->id}}/delete" onclick="javascript:return confirm('Are you sure to delete user')"><i class="fa fa-trash fa-2x" style="padding-right: 8px; color: red;"></i> </a> 
 </div></td></tr>
 <div>
     <tr> <td><b>Email</td> <td><div  class="btn btn-success btn-xs">{{ $users->email }} </td> <td></td> <td></td></tr>

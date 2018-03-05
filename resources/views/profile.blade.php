@@ -16,7 +16,7 @@
 
                     <table class="table" style="border: none;">
 <tr class="info"> <td> <b>WORK DETAILS </b></td> <td> </td>  <td></td> <td><div class="pull-right">
-    <a href="/profile/{{$users->id}}/edit" class="btn btn-primary btn-xs">Edit</a>
+    <a href="/profile/{{$users->id}}/edit" > <i class="fa fa-edit fa-2x"></i> </a>
 </div></td></tr>
 <div>
     <tr> <td><b>Email</td> <td><div  class="btn btn-success btn-xs">{{ $users->email }} </td> <td></td> <td></td></tr>

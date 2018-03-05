@@ -56,7 +56,7 @@
 <li><a href="{{ url('/') }}">TFOLC LEAVE APP</a></li>
 
  @if(Auth::user() && (Auth::user()->role == "admin"))
-            <li><a href="{{ url('/home') }}" data-toggle="tooltip" title="Home">Home</a></li>
+            <li><a href="{{ url('/') }}" data-toggle="tooltip" title="Home">Home</a></li>
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             Manage <span class="caret"></span> 
@@ -66,7 +66,6 @@
             <li>               
                 <a href="/admins/create">Create New User</a>
                 <a href="/admins/users">View All Users</a>
-                <a href="/admins/search">Edit User</a>
                 <a href="/admins/departments">Departments</a>
                 <a href="/admins/grades">Grade Levels</a>
                 <a href="/admins/employee_type">Employee Types</a>
@@ -86,12 +85,12 @@
 </script>
 
  @elseif(Auth::user() && (Auth::user()->role == "supervisor"))
-            <li><a href="{{ url('/home') }}" data-toggle="tooltip" title="Home">Home</a></li>
+            <li><a href="{{ url('/') }}" data-toggle="tooltip" title="Home">Home</a></li>
             <li><a href="{{ url('/apply') }}" data-toggle="tooltip" title="New Leave application">Apply</a></li>
             <li><a href="{{ url('/supervisor_approval') }}" data-toggle="tooltip" title="Approve Leave">Approve</a></li>
  
  @elseif(Auth::user() && (Auth::user()->role == "staff"))
-            <li><a href="{{ url('/home') }}" data-toggle="tooltip" title="Home">Home</a></li>
+            <li><a href="{{ url('/') }}" data-toggle="tooltip" title="Home">Home</a></li>
             <li><a href="{{ url('/apply') }}" data-toggle="tooltip" title="New Leave application"> Apply</a></li>
  @else
     
@@ -139,6 +138,22 @@
 <script type="text/javascript" src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 
+
+
+
+ <!-- DATATABLES    -->      
+        <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.0/jquery.dataTables.min.js"></script>
+
+        <script type="text/javascript">
+        $(document).ready(function() {
+        $('#myTable').DataTable( {
+        "scrollX": true,
+        "iDisplayLength": 25,
+        "lengthMenu": [ [20, 25, 50, -1], [20, 25, 50, "All"] ]
+        } );
+        } );
+        </script>
 
 </body>
 </html>

@@ -5,16 +5,12 @@
 
        
     <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+          @include('layouts.errors')
+
         <div class="panel panel-info">
             <div class="panel-heading">
                  <div class="panel-title">NEW LEAVE APPLICATION</div>
             </div>
-
-
-             @if (Session::has('status'))
-                <div class="panel-heading" style="color: green; text-align: center;">
-                    <img src="{{ asset('info1.jpg') }}"><h5>{{ Session::get('status') }}</h5></div>
-             @endif
 
                 <div class="panel-body">
                            
@@ -114,8 +110,6 @@
     </div>
 
    
-
-
 <div class="form-group{{ $errors->has('leave_address') ? ' has-error' : '' }}">
         <label class="control-label col-md-4"> Leave Address * </label>
         <div class="controls col-md-8 ">  
@@ -140,7 +134,18 @@
         </div>
     </div>
 
-                         
+
+    @if($allowance > 0)
+      
+    @else
+        <div class="form-group">
+            <label class="control-label col-md-4"> Do you want to be paid your leave allowance now? * </label>
+            <div class="controls col-md-6 ">  
+                <label style="margin: 20px 20px 0px 0px;"><input type="radio" name="allowance"   value="1" checked > YES</label> 
+                <label><input type="radio" name="allowance" value="0" > NO</label> 
+            </div>           
+        </div>
+    @endif  
   
 <input type="hidden" name="approval_status" value="pending" readonly="">
 @foreach($requests as $request)

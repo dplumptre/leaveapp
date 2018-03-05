@@ -20,13 +20,13 @@ class AdminsController extends Controller
 	}
 
 
- 	public function view_dept()
+	public function view_dept()
 	{
-        $departments = Department::all();
+		$departments = Department::all();
 		return view('admins/departments', compact('departments'));
 	}
 
- 	public function add_dept()
+	public function add_dept()
 	{
 		return view('admins/add_dept');
 	}
@@ -39,9 +39,10 @@ class AdminsController extends Controller
 		$dept->name = $request->name;
 		
 		if ($dept->save()) {
-			Session()->flash('status', 'Department was successfully added!');
+				$request->Session()->flash('message.content', 'Department was successfully added!');
+			  	$request->session()->flash('message.level', 'success');
 		}
-			return redirect('admins/departments');
+		return redirect('admins/departments');
 
 	}
 
@@ -53,13 +54,13 @@ class AdminsController extends Controller
 
 
 
- 	public function view_grades()
+	public function view_grades()
 	{
-        $grades = Grade::all();
+		$grades = Grade::all();
 		return view('admins/grades', compact('grades'));
 	}
 
- 	public function add_grade()
+	public function add_grade()
 	{
 		return view('admins/add_grade');
 	}
@@ -72,9 +73,10 @@ class AdminsController extends Controller
 		$grade->level = $request->level;
 		
 		if ($grade->save()) {
-			Session()->flash('status', 'Grade Level was successfully added!');
+			$request->Session()->flash('message.content', 'Grade Level was successfully added!');
+		  	$request->session()->flash('message.level', 'success');
 		}
-			return redirect('admins/grades');
+		return redirect('admins/grades');
 
 	}
 
@@ -87,13 +89,13 @@ class AdminsController extends Controller
 
 
 
- 	public function view_employee_type()
+	public function view_employee_type()
 	{
-        $employee_types = Employeetype::all();
+		$employee_types = Employeetype::all();
 		return view('admins/employee_type', compact('employee_types'));
 	}
 
- 	public function add_employee_type()
+	public function add_employee_type()
 	{
 		return view('admins/add_employee_type');
 	}
@@ -106,9 +108,10 @@ class AdminsController extends Controller
 		$employee_type->employee_type = $request->employee_type;
 		
 		if ($employee_type->save()) {
-			Session()->flash('status', 'Employee Type was successfully added!');
+				$request->Session()->flash('message.content', 'Employee Type was successfully added!');
+			  	$request->session()->flash('message.level', 'success');
 		}
-			return redirect('admins/employee_type');
+		return redirect('admins/employee_type');
 
 	}
 
@@ -129,33 +132,36 @@ class AdminsController extends Controller
 	public function reset_column()
 	{
 
-	$resetLeave = Leave::where('days_hr_approved', '>', 0)->update(array('days_hr_approved' => 0));
-	
-		Session()->flash('status', 'RESET was carried out sucessfully!');
+		$resetLeave = Leave::where('days_hr_approved', '>', 0)->update(array('days_hr_approved' => 0));
+		$resetAllowance = Leave::where('allowance', '>', 0)->update(array('allowance' => 0));
+
+		$request->Session()->flash('message.content', 'RESET was successfully executed!');
+	  	$request->session()->flash('message.level', 'success');
+
 		return redirect('admins/reset');
 	}
 
 
 
 
-	 public function all_users(){
-        $employees = User::orderBy('department', 'desc')->orderBy('role', 'desc')->paginate(50);
-        return view('admins.users', compact('employees'));
+	public function all_users(){
+		$employees = User::orderBy('department', 'desc')->orderBy('role', 'desc')->paginate(50);
+		return view('admins.users', compact('employees'));
 	}
 
 
 	public function show($id){
-	    $users = User::find($id);
-	    return view('admins.show', compact('users'));
+		$users = User::find($id);
+		return view('admins.show', compact('users'));
 	}
 
 	public function show_search($search){
-	    $users = User::find($search);
-	    return view('admins.search_result', compact('users'));
+		$users = User::find($search);
+		return view('admins.search_result', compact('users'));
 	}
 
 	public function search_page(){
-	    return view('admins.search');
+		return view('admins.search');
 	}
 
 
@@ -166,11 +172,11 @@ class AdminsController extends Controller
 		$users = User::where('name', 'LIKE', "%$search%")->get();
 		//$users = User::find($search);
 
-	    return view('admins.search_result', compact('users'));
+		return view('admins.search_result', compact('users'));
 	}
-  
 
-    public function create()
+
+	public function create()
 	{
 		$departments = Department::all();
 		$grades = Grade::all();
@@ -185,13 +191,13 @@ class AdminsController extends Controller
 
 		$this->validate($request, [
 			'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'department' => 'required',
-            'entitled' => 'required',
-            'job_title' => 'required|string|max:100',
-            'date_of_hire' => 'required|date:dd-mm-yyyy',
-			]);
+			'email' => 'required|string|email|max:255|unique:users',
+			'password' => 'required|string|min:6|confirmed',
+			'department' => 'required',
+			'entitled' => 'required',
+			'job_title' => 'required|string|max:100',
+			'date_of_hire' => 'required|date:dd-mm-yyyy',
+		]);
 
 
 		$user = new User;
@@ -213,45 +219,33 @@ class AdminsController extends Controller
 
 		if(isset($request->role) && $request->role == "supervisor"){
 			
-							$check = User::where('role', '=', 'supervisor')
-											->where('department', '=', $request->department)->count();
-						
-						if ($check > 0 ) {
-								
+			$check = User::where('role', '=', 'supervisor')
+			->where('department', '=', $request->department)->count();
+
+			if ($check > 0 ) {
+
 				
-							$request->session()->flash('flash_message', 'A supervisor already exist in this department!');
-							$request->session()->flash('flash_type', 'alert-danger');
+				$request->session()->flash('flash_message', 'A supervisor already exist in this department!');
+				$request->session()->flash('flash_type', 'alert-danger');
 
 
-								return redirect('admins/create');	
-						}
+				return redirect('admins/create');	
+			}
 			
-					}
+		}
 
+		$user->save();
 
-					
-					
-						$user->save();
+		$request->session()->flash('flash_message', 'New User creation was successfull!');
+		$request->session()->flash('flash_type', 'alert-success');
 
-							$request->session()->flash('flash_message', 'New User creation was successfull!');
-							$request->session()->flash('flash_type', 'alert-success');
+		return redirect('admins/create');	
 
-							return redirect('admins/create');	
-					
-
-
-	    
-	
-		
 
 	} //end
 
 
 
-
-
-
-	
 
 	public function edit_user(User $user)
 	{
@@ -267,21 +261,22 @@ class AdminsController extends Controller
 
 		if(isset($request->role) && $request->role == "supervisor"){
 
-				$check = User::where('role', '=', 'supervisor')
-								->where('department', '=', $request->department)->count();
+			$check = User::where('role', '=', 'supervisor')
+			->where('department', '=', $request->department)->count();
 			
 			if ($check > 0 ) {
 
-					Session()->flash('flash_message', 'A supervisor already exist in this department!');
-					Session()->flash('flash_type', 'alert-danger');
-				    return redirect('admins/users');	
+				Session()->flash('flash_message', 'A supervisor already exist in this department!');
+				Session()->flash('flash_type', 'alert-danger');
+				return redirect('admins/users');	
 			}
 
 		}
 
-	    $user->update($request->all());
-		Session()->flash('status', 'Employee details was successfully updated!');
-	
+		$user->update($request->all());
+			$request->Session()->flash('message.content', 'Employee details was successfully updated!');
+		  	$request->session()->flash('message.level', 'success');
+
 		return redirect('admins/users');
 		
 	}
@@ -293,33 +288,34 @@ class AdminsController extends Controller
 		return redirect('admins/users');
 	}
 
- 
- public function show_all_leave_request(Request $request){
- 		$users = $request->user();
-        $requests = Leave::orderBy('id', 'desc')->paginate(50);
-        //$requests = Leave::paginate(3);
-        return view('admins.requests', compact('users', 'requests'));
+
+	public function show_all_leave_request(Request $request){
+		$users = $request->user();
+		$requests = Leave::orderBy('id', 'desc')->get();
+
+							// $requests = Leave::orderBy('id', 'desc')
+							// ->paginate(50);
+		return view('admins.requests', compact('users', 'requests'));
 	}
 
 
- public function show_all_leave_return(Request $request){
- 		$users = $request->user();
-        $requests = Leave::orderBy('id', 'desc')->paginate(50);
-        //$requests = Leave::paginate(3);
-        return view('admins.return', compact('users', 'requests'));
+	public function show_all_leave_return(Request $request){
+		$users = $request->user();
+		$requests = Leave::orderBy('id', 'desc')->paginate(50);
+		return view('admins.return', compact('users', 'requests'));
 	}
 
 
 
-	 public function application_status(Request $request){
- 		$users = $request->user();
-        $requests = Leave::orderBy('id', 'desc')->paginate(50);
+	public function application_status(Request $request){
+		$users = $request->user();
+		$requests = Leave::orderBy('id', 'desc')->paginate(50);
         //$requests = Leave::paginate(3);
-        return view('admins.application_status', compact('users', 'requests'));
+		return view('admins.application_status', compact('users', 'requests'));
 	}
 
 
-public function admin_edit(Leave $users)
+	public function admin_edit(Leave $users)
 	{
 
 		$app_email = User::find($users->user_id);
@@ -339,50 +335,42 @@ public function admin_edit(Leave $users)
 
 		
 		$this->validate($request, [
-           'hr_signature' => 'required',
-			]);
-			
+			'hr_signature' => 'required',
+		]);
+
 		$users->admin_name = $request->user()->admin_name;
 		if ($users->update($request->all())) {
 			//$users->update();
 			
 			if($request->admin_approval_status == "Approved"){
 
-			Mail::send('mail.approved_mail', array('applicant_name'=> $applicant_name), function($message) use ($applicant_email) 
-			{
-				$message->to($applicant_email,'TFOLC LEAVE APP')->subject('Your Leave has been approved!');
-			});  
-		
-		}
+				Mail::send('mail.approved_mail', array('applicant_name'=> $applicant_name), function($message) use ($applicant_email) 
+				{
+					$message->to($applicant_email,'TFOLC LEAVE APP')->subject('Your Leave has been approved!');
+				});  
+
+			}
 
 			
 			if($request->admin_approval_status == "Rejected"){
 				
-						
-				
-				
-				
-								Mail::send('mail.failmailtwo', array('applicant_name'=> $applicant_name), function($message) use ($applicant_email)
-								{
-									$message->to($applicant_email,'TFOLC LEAVE APP')->subject('Result of your Leave Application!');
-								});  
-				
-							}
+				Mail::send('mail.failmailtwo', array('applicant_name'=> $applicant_name), function($message) use ($applicant_email)
+				{
+					$message->to($applicant_email,'TFOLC LEAVE APP')->subject('Result of your Leave Application!');
+				});  
 
-
-
-
-		
-			Session()->flash('status', 'Leave status was successfully updated!');
+			}
+				$request->Session()->flash('message.content', 'Leave status was successfully updated!');
+			  	$request->session()->flash('message.level', 'success');
 		}
-			return redirect('admins/requests');
+		return redirect('admins/requests');
 			//return view('admins.requests', compact('users'));
 
 	}
 
 
 
-public function admin_confirm(Leave $users)
+	public function admin_confirm(Leave $users)
 	{
 		return view('admins/admin_confirm', compact('users'));
 	}
@@ -392,25 +380,25 @@ public function admin_confirm(Leave $users)
 	{
 		
 		$this->validate($request, [
-           'hr_confirm_signature' => 'required',
-			]);
-			
+			'hr_confirm_signature' => 'required',
+		]);
+
 		$users->admin_name = $request->user()->admin_name;
 		if ($users->update($request->all())) {
 			//$users->update();
-		
-			Session()->flash('status', 'Leave status was successfully updated!');
+				$request->Session()->flash('message.content', 'Leave Return was successfully confirmed!');
+			  	$request->session()->flash('message.level', 'success');
 		}
-			return redirect('admins/return');
+		return redirect('admins/return');
 			//return view('admins.requests', compact('users'));
 
 	}
 
 
 
-public function leave_history($user){
-	    $users = User::find($user);
-	    return view('admins.history', compact('users'));
+	public function leave_history($user){
+		$users = User::find($user);
+		return view('admins.history', compact('users'));
 	}
 
 

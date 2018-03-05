@@ -10,6 +10,7 @@ use App\Grade;
 use App\Department;
 use App\Employeetype;
 use Mail;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -62,9 +63,9 @@ class HomeController extends Controller
 	public function update_profile(Request $request, User $user)
 	{
 
-		if ($user->update($request->all())) {
-		
-			Session()->flash('status', 'Your profile was successfully updated!');
+		if ($user->update($request->all())) {		
+			$request->Session()->flash('message.content', 'Your profile was successfully updated!');
+		  	$request->session()->flash('message.level', 'success');
 		}
 		return back();
 	}
@@ -72,22 +73,25 @@ class HomeController extends Controller
     
     public function application(Request $request)
     {
+    	$user_id = Auth::user()->id; 	
+        $leave = Leave::where('user_id', '=', $user_id)
+        				->where('allowance', '>', 0)
+        				->where('approval_status', '=', "Approved")
+        				->where('admin_approval_status', '=', "Approved")
+        				->where('days_hr_approved', '>', 0)->get();
+        $allowance = $leave->count();
+
 		$requests = User::where('role', '=', 'supervisor')
 						->where('department', '=', $request->user()->department)->get();
 
 		$relievers = User::where('department', '=', $request->user()->department)->get();
-        return view('apply', compact('requests', 'relievers'));
+        return view('apply', compact('requests', 'relievers', 'allowance'));
+
     }
 
 
     public function store_application(Request $request, Leave $leave, User $user)
 	{
-
-
-
-return "You cant apply for leave at the moment kindly contact the human resource department";
-
-
 
 
 		$this->validate($request, [
@@ -112,6 +116,7 @@ return "You cant apply for leave at the moment kindly contact the human resource
 		$leave->reason = $request->reason;
 		$leave->reliever_name = $request->reliever_name;
 		$leave->leave_address = $request->leave_address;
+		$leave->allowance = $request->allowance;
 		$leave->approval_status = $request->approval_status;
 		$leave->mobile = $request->mobile;
 		$leave->leave_type = $request->leave_type;
@@ -125,8 +130,9 @@ return "You cant apply for leave at the moment kindly contact the human resource
 
 		if ($leave->save()) {
 		
-			Session()->flash('status', 'Your leave application was successful!');
-			
+			$request->Session()->flash('message.content', 'Your leave application was successful!');
+		  	$request->session()->flash('message.level', 'success');
+
 				#SEND EMAIL
 				$supervisor = $request->unit_head_name;
 				$supervisor_email = $request->unit_head_email;
@@ -252,15 +258,10 @@ return "You cant apply for leave at the moment kindly contact the human resource
 								});  
 				
 							} 
-
-
-
-
-
-			
-			
 		
-			Session()->flash('status', 'Leave status was successfully updated!');
+				$request->Session()->flash('message.content', 'Leave status was successfully updated!');
+			  	$request->session()->flash('message.level', 'success');
+
 		}
 		return redirect('supervisor_approval');
 
@@ -285,7 +286,9 @@ return "You cant apply for leave at the moment kindly contact the human resource
 
 		if ($users->update($request->all())) {
 		
-			Session()->flash('status', 'Leave return form status was successfully submitted!');
+			$request->Session()->flash('message.content', 'Leave return form status was successfully submitted!');
+		  	$request->session()->flash('message.level', 'success');
+
 			
 		}
 		
@@ -311,7 +314,8 @@ public function uh_confirmation(Leave $users)
 
 		if ($users->update($request->all())) {
 		
-			Session()->flash('supervisor_approval', 'User Resumption status was successfully updated!');
+			$request->Session()->flash('message.content', 'User Resumption status was successfully updated!');
+		  	$request->session()->flash('message.level', 'success');
 		}
 		return redirect('supervisor_approval');
 		

@@ -2,14 +2,10 @@
 
 @section('content')
 <div class="container">    
-
-            <div style="color: green" align="center">
-                        @if (Session::has('status'))
-                            {{ Session::get('status') }}
-                        @endif
-            </div>
                 
     <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+         @include('layouts.errors')
+
         <div class="panel panel-info">
             <div class="panel-heading">
                  <div class="panel-title">Leave return detail of {{ $users->name }}</div>

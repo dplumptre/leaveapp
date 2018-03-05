@@ -4,14 +4,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+           <div class="panel-heading" align="center">   @include('layouts.errors') </div>
             <div class="panel panel-default">
                 <div class="panel-heading"><h4> LEAVE RESET 
- <div style="color: green" align="center">
-                        @if (Session::has('status'))
-                            {{ Session::get('status') }}
-                        @endif
-                    </div>
-
        
                 </h4></div>
 
