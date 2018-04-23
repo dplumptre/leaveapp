@@ -13,6 +13,21 @@ public function leaves()
     }
 
 
+
+
+
+    public function loans()
+    {
+       return $this->belongsTo(App\loan::class);
+    }
+
+
+    public function loan_roles()
+    {
+       return $this->belongsTo(App\LoanRole::class);
+    }
+
+
     protected $fillable = array('user_id', 
                                 'name',
                                 'password',
