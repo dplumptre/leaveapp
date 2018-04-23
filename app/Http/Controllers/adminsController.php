@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
 use App\Leave;
+use App\Loan;
 use App\Department;
 use App\Grade;
 use App\Employeetype;
+use App\Loan_role;
 use Mail;
 
 class AdminsController extends Controller
@@ -213,6 +215,7 @@ class AdminsController extends Controller
 		$user->date_of_hire = $request->date_of_hire;
 		$user->job_title = $request->job_title;
 		$user->entitled = $request->entitled;
+		$user->loan_roles_id = $request->loan_roles_id;
 
 
 
@@ -252,8 +255,9 @@ class AdminsController extends Controller
 		$departments = Department::all();
 		$grades = Grade::all();
 		$employee_types = Employeetype::all();
+		$loan_roles = Loan_role::all();
 
-		return view('admins/edit', compact('user', 'departments', 'grades', 'employee_types'));
+		return view('admins/edit', compact('user', 'departments', 'grades', 'employee_types', 'loan_roles'));
 	}
 
 	public function update_user(Request $request, User $user)
@@ -262,18 +266,38 @@ class AdminsController extends Controller
 		if(isset($request->role) && $request->role == "supervisor"){
 
 			$check = User::where('role', '=', 'supervisor')
-			->where('department', '=', $request->department)->count();
+						 ->where('department', '=', $request->department)->count();
 			
 			if ($check > 0 ) {
+				$request->Session()->flash('message.content', 'A supervisor already exist in this department!');
+			  	$request->session()->flash('message.level', 'danger');
 
-				Session()->flash('flash_message', 'A supervisor already exist in this department!');
-				Session()->flash('flash_type', 'alert-danger');
 				return redirect('admins/users');	
 			}
 
 		}
 
-		$user->update($request->all());
+		$user->name = $request->name;
+		$user->email = $request->email;
+		$user->updated_at = $request->updated_at;
+		$user->address = $request->address;
+		$user->role = $request->role;
+		$user->gender = $request->gender;
+		$user->mobile = $request->mobile;
+		$user->dob = $request->dob;
+		$user->marital_status = $request->marital_status;
+		$user->department = $request->department;
+		$user->grade = $request->grade;
+		$user->employee_type = $request->employee_type;
+		$user->job_title = $request->job_title;
+		$user->date_of_hire = $request->date_of_hire;
+		$user->entitled = $request->entitled;
+		$user->balance = $request->balance;
+		$user->loan_roles_id = $request->loan_roles_id;
+		
+		$user->update();
+
+		// $user->update($request->all());
 			$request->Session()->flash('message.content', 'Employee details was successfully updated!');
 		  	$request->session()->flash('message.level', 'success');
 
@@ -400,6 +424,126 @@ class AdminsController extends Controller
 		$users = User::find($user);
 		return view('admins.history', compact('users'));
 	}
+
+
+
+
+
+//-----------------------------------------------------------------
+//EVERYTHING LOAN
+//-----------------------------------------------------------------
+
+
+// Shows all Users loan applications
+   public function show_all_loan_applications(){
+ 		// $users = $request->user();
+        $users = Loan::orderBy('id', 'desc')->paginate(50);
+        //$requests = Leave::paginate(3);
+        return view('admins/loan_applications', compact('users'));
+    }
+
+
+	public function admin_loan_edit($loan_id)
+	{
+		$users = Loan::where('id', '=', $loan_id)->get();
+
+        return view('admins/admin_loan_edit', compact('users'));
+	}
+
+
+	public function admin_loan_approve(Request $request, Loan $users)
+		{
+			
+			$this->validate($request, [
+				'hr_status' => 'required',
+			]);
+
+			$users->hr_status = $request->hr_status;
+			$users->update();
+					$request->Session()->flash('message.content', 'Loan was successfully approved!');
+				  	$request->session()->flash('message.level', 'success');
+			return redirect('admins/loan_applications');
+				//return view('admins.requests', compact('users'));
+
+	}
+
+
+public function store_loan(Request $request, Loan $loan, User $user)
+	{
+
+
+		$this->validate($request, [
+            'amount' => 'required|digits_between:4,9',
+            'installment' => 'required|digits_between:4,9',
+            'purpose' => 'required|string',
+            'deduction_start' => 'required',
+			]);
+
+
+
+		$loan = new Loan;
+		$loan->amount = $request->amount;
+		$loan->installment = $request->installment;
+		$loan->purpose = $request->purpose;
+		$loan->deduction_start = $request->deduction_start;
+		$loan->loan_status = $request->loan_status;
+				
+		$loan->user_id = $request->user()->id;
+		//$leave->save();
+
+		if ($loan->save()) {
+		
+			$request->Session()->flash('message.content', 'Your loan application was successful!');
+		  	$request->session()->flash('message.level', 'success');
+
+				#SEND EMAIL
+				// $supervisor = $request->unit_head_name;
+				// $supervisor_email = $request->unit_head_email;
+				// $applicant_name = $request->user()->name;
+				// $applicat_email = $request->user()->email;
+
+
+				// if($supervisor_email == "" || empty($supervisor_email)){
+
+				// 	$hremails = User::where('role', '=', 'admin')
+				// 	->where('department', '=', 'Human Resource')->first();
+
+
+				// 	$supervisor_email = $hremails->email;
+				// }
+
+
+				// Mail::send('mail.firstmail', array('supervisor'=> $supervisor,'applicant_name'=> $applicant_name), function($message) use ($supervisor_email) 
+				// {
+				// 	$message->to($supervisor_email,'TFOLC LEAVE APP')->subject('Leave Request has been sent to you');
+				// });  			
+			
+		}
+		return back();
+	}
+
+
+
+
+
+//Loan status of a particular User
+   // public function loan_status($users){         
+   //      // $users = Loan::find($users);
+   //      $user_id = Auth::user()->id; 
+   //      $users = Loan::where('user_id', '=', $users)->get();
+	  //   return view('loan_status', compact('users'));
+   //  }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -11,20 +11,21 @@
                 @if(Auth::guest())
                 <img src="{{ asset('logo.png') }}"> 
                    <h4 style="line-height: 30px">Welcome to The Fountain Of Life Church <br />
-                    Leave Application Portal. <br /> 
+                    Leave/Loan Application Portal. <br /> 
                    Kindly <a href="{{ url('/login') }}">Login</a> to Begin</h4>
                  @endif
 @if(Auth::user())                                 
 <a href="{{ url('/apply') }}" data-toggle="tooltip" title="Apply For leave">
    <div style="margin:30px 0px 30px 0px "class="col-md-4"><i class="fa  fa-5x fa-pencil-square-o "></i> <br /> LEAVE APPLICATION</div>
 </a>
-<a href="/status/{{ Auth::user()->id }}" data-toggle="tooltip" title="View leave History/Status"> 
-   <div style="margin:30px 0px 30px 0px "class="col-md-4"><i class="fa  fa-5x fa-calendar "></i> <br /> LEAVE STATUS </div>
+<a href="/loan_application"}}" data-toggle="tooltip" title="Apply For Loan"> 
+   <div style="margin:30px 0px 30px 0px "class="col-md-4"><i class="fa  fa-5x fa-credit-card "></i> <br /> LOAN APPLICATION </div>
 </a>
 
 <a href="/profile/{{ Auth::user()->id }}" data-toggle="tooltip" title="View/Edit Your Profile"> 
    <div style="margin:30px 0px 30px 0px " class="col-md-4"><i class="fa  fa-5x fa-eye "></i>  <br /> VIEW PROFILE</div>
 </a>
+
 
  @if(Auth::user() && (Auth::user()->role == "admin"))
  <a href="/admins/create" data-toggle="tooltip" title="Create New User"> 

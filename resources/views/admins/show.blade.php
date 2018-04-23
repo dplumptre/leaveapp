@@ -30,6 +30,7 @@
     <tr> <td><b>Department</td> <td>{{ $users->department }} </td> <td></td>  <td></td></tr>
     <tr> <td><b>Job Title</td> <td>{{ $users->job_title }} </td>  <td></td><td></td></tr>
     <tr> <td><b>Role</td> <td><div  class="btn btn-info btn-xs">{{ $users->role }} </div></td> <td></td> <td> </td> </tr>
+    <tr> <td><b>Loan Manager Role</td> <td><div  class="btn btn-warning btn-xs"> <?php getLoanRole($users->loan_roles_id); ?> </div></td> <td></td> <td> </td> </tr>
     <tr> <td><b>Grade</td> <td>{{ $users->grade }} </td> <td></td>  <td></td></tr>
     <tr> <td><b>Employee Type</td> <td>{{ $users->employee_type }} </td> <td></td>  <td></td></tr>
     <tr> <td><b>Date of Hire</td> <td>{{ $users->date_of_hire }} </td>  <td></td> <td></td></tr>

@@ -73,8 +73,36 @@
             </li>
         </ul>
     </li>
-         <li><a href="{{ url('/apply') }}" data-toggle="tooltip" title="New Leave application">Apply</a></li>
-         <li><a href="/admins/requests" data-toggle="tooltip" title="View all Leave request">View Applications</a></li>
+
+
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            Apply <span class="caret"></span> 
+        </a>
+
+        <ul class="dropdown-menu" role="menu">
+            <li>               
+                <a href="{{ url('/apply') }}" data-toggle="tooltip" title="New Leave application">Apply For Leave</a>
+                <a href="{{ url('/loan_application') }}" data-toggle="tooltip" title="New Loan application">Apply For Loan</a>
+            </li>
+        </ul>
+    </li>
+
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            View Applications <span class="caret"></span> 
+        </a>
+
+        <ul class="dropdown-menu" role="menu">
+            <li>               
+                <a href="/admins/requests" data-toggle="tooltip" title="View all Leave request">Leave Applications</a>
+@if(Auth::user() && (Auth::user()->loan_roles_id == "1") || (Auth::user()->loan_roles_id == "2") || (Auth::user()->loan_roles_id == "3"))
+                <a href="/admins/loan_applications" data-toggle="tooltip" title="View all Loan Applications">Loan Applications</a>
+@endif
+            </li>
+        </ul>
+    </li>
+
           <li><a href="/admins/return" data-toggle="tooltip" title="View all Leave request"> Leave Return Details</a></li>
          
 
@@ -86,12 +114,38 @@
 
  @elseif(Auth::user() && (Auth::user()->role == "supervisor"))
             <li><a href="{{ url('/') }}" data-toggle="tooltip" title="Home">Home</a></li>
-            <li><a href="{{ url('/apply') }}" data-toggle="tooltip" title="New Leave application">Apply</a></li>
+            
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            Apply <span class="caret"></span> 
+        </a>
+
+        <ul class="dropdown-menu" role="menu">
+            <li>               
+                <a href="{{ url('/apply') }}" data-toggle="tooltip" title="New Leave application">Apply For Leave</a>
+                <a href="{{ url('/loan_application') }}" data-toggle="tooltip" title="New Loan application">Apply For Loan</a>
+            </li>
+        </ul>
+    </li>
+
             <li><a href="{{ url('/supervisor_approval') }}" data-toggle="tooltip" title="Approve Leave">Approve</a></li>
  
  @elseif(Auth::user() && (Auth::user()->role == "staff"))
             <li><a href="{{ url('/') }}" data-toggle="tooltip" title="Home">Home</a></li>
-            <li><a href="{{ url('/apply') }}" data-toggle="tooltip" title="New Leave application"> Apply</a></li>
+            
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            Apply <span class="caret"></span> 
+        </a>
+
+        <ul class="dropdown-menu" role="menu">
+            <li>               
+                <a href="{{ url('/apply') }}" data-toggle="tooltip" title="New Leave application">Apply For Leave</a>
+                <a href="{{ url('/loan_application') }}" data-toggle="tooltip" title="New Loan application">Apply For Loan</a>
+            </li>
+        </ul>
+    </li>
+
  @else
     
 @endif
@@ -116,6 +170,7 @@
                                     <li>               
                                         <li><a href="/profile/{{ Auth::user()->id }}"> Profile</a></li>
                                         <li><a href="/status/{{ Auth::user()->id }}"> Leave Status</a></li>
+                                        <li><a href="/user_loan_status/{{ Auth::user()->id }}"> Loan Status</a></li>
                                         <li><a href="{{ url('/logout') }}"> Logout</a></li>
                                 
                                     </li>

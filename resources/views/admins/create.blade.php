@@ -105,6 +105,65 @@
 
 
 
+
+
+                            <!-- Loan Role Section  -->
+<!-- This portion toggles whether the Loan role  -->
+<!-- will show or not base on what is checked. Please don't change -->
+
+<div class="form-group">
+    <div class="col-md-12 btn-info" style="padding: 5px;">
+        <label style="padding: 0 20px 0 10px;">Can User Manage Loan Application? * </label>
+        <label style="padding-right: 10px;"><input type="radio" name="search" value="standard" onClick="show_hide('standard', 'advanced')" checked /> No </label>
+        <label style="padding-left: 10px;"><input type="radio" name="search" value="advanced" onClick="show_hide('advanced', 'standard')" /> Yes</label>
+
+    </div>      
+</div>
+
+
+<div class="form-group">
+    <div class="controls col-md-12 ">  
+        <div class="form-group" id="standard" style="display: block;"> </div>
+    </div>             
+</div>
+
+
+<div class="form-group">
+    <div id="advanced" style="display: none;">
+        <label class="control-label col-md-4"> Assign Loan Role * </label>
+        <div class="controls col-md-6 ">  
+            <select class="input-md  textinput textInput form-control"  name="loan_roles_id" style="margin-bottom: 10px"  >
+                <option value="">Assign Loan Role</option>
+                <option value="0">None</option>
+                <option value="1">HR Admin</option>
+                <option value="2">Payroll MGT</option>
+                <option value="3">General Manager</option>
+            </select>   
+        </div>             
+    </div>
+</div>
+
+
+<script>
+    function show_hide(show, hide)
+{
+document.getElementById(show).style.display="block";
+document.getElementById(hide).style.display="none";
+}
+</script>
+
+
+
+<!-- End of Loan Role Section -->
+
+
+    
+
+
+
+
+
+
     <div class="form-group">
         <label class="control-label col-md-4"> Department * </label>
         <div class="controls col-md-6 ">  

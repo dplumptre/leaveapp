@@ -6,6 +6,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\User;
 use App\Leave;
+use App\Loan;
 use App\Grade;
 use App\Department;
 use App\Employeetype;
@@ -168,7 +169,7 @@ class HomeController extends Controller
 
    public function all_leave_status(Request $request){
  		$users = $request->user();
-        $requests = Leave::orderBy('id', 'desc')->paginate(50);
+        $requests = Loan::orderBy('id', 'desc')->paginate(50);
         //$requests = Leave::paginate(3);
         return view('all_leaves', compact('users', 'requests'));
     }
@@ -320,6 +321,211 @@ public function uh_confirmation(Leave $users)
 		return redirect('supervisor_approval');
 		
 	}
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------------------------
+//EVERYTHING LOAN
+//-----------------------------------------------------------------
+
+
+	public function loan_application(Request $request)
+	{
+		$user_id = Auth::user()->id; 	
+       
+		 $requests = User::where('id', '=', '$user_id')->get();
+
+		$relievers = User::where('department', '=', $request->user()->department)->get();
+        return view('loan_application', compact('requests', 'relievers', 'allowance'));
+	}
+
+
+
+
+
+
+public function store_loan(Request $request, Loan $loan, User $user)
+	{
+
+
+		$this->validate($request, [
+            'amount' => 'required|digits_between:4,9',
+            'installment' => 'required|digits_between:4,9',
+            'purpose' => 'required|string',
+            'deduction_start' => 'required',
+			]);
+
+
+
+		$loan = new Loan;
+		$loan->amount = $request->amount;
+		$loan->installment = $request->installment;
+		$loan->purpose = $request->purpose;
+		$loan->deduction_start = $request->deduction_start;
+		$loan->loan_status = $request->loan_status;
+		$loan->amount_approved = 0;
+				
+		$loan->user_id = $request->user()->id;
+		//$leave->save();
+
+		if ($loan->save()) {
+		
+			$request->Session()->flash('message.content', 'Your loan application was successful!');
+		  	$request->session()->flash('message.level', 'success');
+
+				#SEND EMAIL
+				// $supervisor = $request->unit_head_name;
+				// $supervisor_email = $request->unit_head_email;
+				// $applicant_name = $request->user()->name;
+				// $applicat_email = $request->user()->email;
+
+
+				// if($supervisor_email == "" || empty($supervisor_email)){
+
+				// 	$hremails = User::where('role', '=', 'admin')
+				// 	->where('department', '=', 'Human Resource')->first();
+
+
+				// 	$supervisor_email = $hremails->email;
+				// }
+
+
+				// Mail::send('mail.firstmail', array('supervisor'=> $supervisor,'applicant_name'=> $applicant_name), function($message) use ($supervisor_email) 
+				// {
+				// 	$message->to($supervisor_email,'TFOLC LEAVE APP')->subject('Leave Request has been sent to you');
+				// });  			
+			
+		}
+		
+		        $user_id = Auth::user()->id; 
+		        $users = Loan::where('user_id', '=', $user_id)->orderBy('id', 'desc')->get();
+			    return view('loan_status', compact('users'));
+
+		// return back();
+	}
+
+
+//Loan status of all Users
+   public function loan_status($users){      
+   	
+        // $users = Loan::find($users);
+        $user_id = Auth::user()->id; 
+        $user_loan_status = Loan::where('user_id', '=', $user_id)->count();
+
+        $users = Loan::where('user_id', '=', $users)->orderBy('id', 'desc')->get();
+	    return view('loan_status', compact('users', 'user_loan_status'));
+    }
+
+
+
+//Loan status of a particular User
+   public function user_loan_status($users){      
+   	
+        // $users = Loan::find($users);
+        // $user_id = Auth::user()->id; 
+        // $user_loan_status = Loan::where('user_id', '=', $user_id)->get();
+		$user_loan_status = Loan::where('user_id', '=', $users)->count();
+        $users = Loan::where('user_id', '=', $users)->orderBy('id', 'desc')->get();
+	    return view('user_loan_status', compact('users', 'user_loan_status'));
+    }
+
+
+
+
+public function loan_info($loan_id)
+	{
+		$users = Loan::where('id', '=', $loan_id)->get();
+
+        return view('/loan_info', compact('users'));
+	}
+
+
+
+	public function complete_status(Request $request, Loan $users)
+	{
+
+		$this->validate($request, [
+			'complete_status' => 'required',
+		]);
+
+		$users->complete_status = $request->complete_status;
+		$users->update();
+		$request->Session()->flash('message.content', 'Status was successfully Updated!');
+		$request->session()->flash('message.level', 'success');
+		return redirect()->back();
+				//return view('admins.requests', compact('users'));
+
+	}
+
+
+
+
+
+public function loan_edit($loan_id)
+	{
+		$users = Loan::where('id', '=', $loan_id)->get();
+
+        return view('/loan_edit', compact('users'));
+	}
+
+
+
+	public function update_loan_edit(Request $request, Loan $users)
+	{
+
+		$this->validate($request, [
+            'amount' => 'required|digits_between:4,9',
+            'installment' => 'required|digits_between:4,9',
+            'purpose' => 'required|string',
+            'deduction_start' => 'required',
+			]);
+
+
+		$users->amount = $request->amount;
+		$users->installment = $request->installment;
+		$users->purpose = $request->purpose;
+		$users->deduction_start = $request->deduction_start;
+		$users->loan_status = $request->loan_status;
+				
+		$users->update();
+		$request->Session()->flash('message.content', 'Update was successfull!');
+		$request->session()->flash('message.level', 'success');
+
+		        $user_id = Auth::user()->id; 
+		        $users = Loan::where('user_id', '=', $user_id)->orderBy('id', 'desc')->get();
+			    return view('loan_status', compact('users'));
+		
+		// return redirect()->back();
+				//return view('admins.requests', compact('users'));
+
+	}
+
+
+	public function repayment_status(Request $request, Loan $users)
+	{
+
+		$this->validate($request, [
+			'repayment_status' => 'required',
+		]);
+
+		$users->repayment_status = $request->repayment_status;
+		$users->update();
+		$request->Session()->flash('message.content', 'Status was successfully Updated!');
+		$request->session()->flash('message.level', 'success');
+		return redirect()->back();
+				//return view('admins.requests', compact('users'));
+
+	}
+
+
+
 
 
 
