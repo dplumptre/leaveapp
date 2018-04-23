@@ -24,7 +24,7 @@ public function leaves()
 
     public function loan_roles()
     {
-       return $this->belongsTo(App\LoanRole::class);
+      return $this->hasMany(App\LoanRole::class);
     }
 
 
