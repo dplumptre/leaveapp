@@ -355,12 +355,18 @@ public function store_loan(Request $request, Loan $loan, User $user)
 	{
 
 
+
+		
+
+
 		$this->validate($request, [
             'amount' => 'required|digits_between:4,9',
             'installment' => 'required|digits_between:4,9',
             'purpose' => 'required|string',
             'deduction_start' => 'required',
 			]);
+
+
 
 
 
@@ -384,26 +390,28 @@ public function store_loan(Request $request, Loan $loan, User $user)
 		  	$request->session()->flash('message.level', 'success');
 
 				#SEND EMAIL
-				// $supervisor = $request->unit_head_name;
-				// $supervisor_email = $request->unit_head_email;
-				// $applicant_name = $request->user()->name;
-				// $applicat_email = $request->user()->email;
+			
+
+				$users = User::where('id', '=', $request->user_id)->first();
+				
+			 $applicant_name =  $users->name;
+			 $applicant_email =  $users->email;
 
 
-				// if($supervisor_email == "" || empty($supervisor_email)){
+			
 
-				// 	$hremails = User::where('role', '=', 'admin')
-				// 	->where('department', '=', 'Human Resource')->first();
-
-
-				// 	$supervisor_email = $hremails->email;
-				// }
+				 	$hremails = User::where('role', '=', 'admin')
+				 	->where('department', '=', 'Human Resource')->first();
 
 
-				// Mail::send('mail.firstmail', array('supervisor'=> $supervisor,'applicant_name'=> $applicant_name), function($message) use ($supervisor_email) 
-				// {
-				// 	$message->to($supervisor_email,'TFOLC LEAVE APP')->subject('Leave Request has been sent to you');
-				// });  			
+				 	$supervisor_email = $hremails->email;
+				 
+
+
+				 Mail::send('mail.firstloan', array('applicant_name'=> $applicant_name), function($message) use ($supervisor_email) 
+				 {
+				 	$message->to($supervisor_email,'TFOLC LEAVE APP')->subject('Loan Request has been sent to you');
+				 });  			
 			
 		}
 		

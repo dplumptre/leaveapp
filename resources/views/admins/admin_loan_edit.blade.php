@@ -85,13 +85,15 @@
 
 <!-- hr Approval Form -->
 
+
+
 @if(Auth::user() && (Auth::user()->loan_roles_id == "1"))
 
 <form method="post" action="/admins/{{$user->id}}/admin_loan_approve">
         {{ csrf_field() }}
         {{ method_field('PATCH') }}
-
-
+        
+        <input type="hidden" name="user_id" value="<?php echo $user->user_id; ?>" readonly="">
     <div class="form-group">
         <label class="control-label col-md-12 " style="padding-left: 40%"> <span class="btn-warning" style="padding: 10px">HR APPROVAL</span> </label>
         <div class="controls col-md-12 " style="padding-top: 20px">  
@@ -124,7 +126,7 @@
 <form method="post" action="/admins/{{$user->id}}/mgt_loan_approve">
         {{ csrf_field() }}
         {{ method_field('PATCH') }}
-
+        <input type="hidden" name="user_id" value="<?php echo $user->user_id; ?>" readonly="">
     <div class="form-group">
         <label class="control-label col-md-12" style="padding-left: 35%"> <span class="btn-warning" style="padding: 10px">PAYROLL MGT APPROVAL</span> </label>
         <div class="controls col-md-12 " style="padding-top: 20px">  
@@ -155,7 +157,7 @@
 
         {{ csrf_field() }}
         {{ method_field('PATCH') }}
-
+        <input type="hidden" name="user_id" value="<?php echo $user->user_id; ?>" readonly="">
 <label class="control-label col-md-12" style="padding-left: 40%"> <span class="btn-warning" style="padding: 10px">GM APPROVAL </span></label>
     <div class="form-group{{ $errors->has('leave_starts') ? ' has-error' : '' }}">
         <label class="control-label col-md-12"> Amount Approved * </label>
