@@ -5,6 +5,14 @@
 @section('content')
 
 
+<div class="container">
+    <div class="row">
+        <strong>@include('layouts.errors')</strong>  
+    </div>
+</div>
+
+
+
 @if($user_loan_status == 0)
 <div class="container" style="background-color: white">
     <div class="row">

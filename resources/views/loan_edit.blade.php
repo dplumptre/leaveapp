@@ -37,6 +37,7 @@
               <input type="text"  class="form-control" name="amount" value="{{$user->amount}}">
               <div class="input-group-addon">.00</div>
           </div>
+              <em style="color: #ccc">Please do not include a comma</em>
       </div>
     </div>
 
@@ -68,6 +69,7 @@
               <input type="text"  class="form-control" name="installment" value="{{$user->installment}}">
               <div class="input-group-addon">.00</div>
           </div>
+              <em style="color: #ccc">Please do not include a comma</em>
       </div>
     </div>
 

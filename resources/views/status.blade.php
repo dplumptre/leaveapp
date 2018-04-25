@@ -46,11 +46,13 @@
                 <td class="text-center" style="width: 12%" ><div class=<?php status($user->approval_status); ?> > {{ $user->approval_status }} </td>
                 <td class="text-center"><div class=<?php status1($user->admin_approval_status); ?> > {{ $user->admin_approval_status }} </td>
     <td class="text-center"style="width: 5%" >
-        @if(($user->approval_status == "Approved") && ($user->admin_approval_status == "Approved"))
-        <a href="/leave_return/{{$user->id}}/edit"  data-toggle="tooltip" title="Leave return form">
-            <i class="fa fa-table fa-2"></i> 
-        </a>
-       @if($user->resumed_on) <i class="fa fa-check-circle fa-2"></i> @endif
+        @if($user->resumed_on) 
+                <i class="fa fa-check-circle fa-2"></i> 
+        @elseif(($user->approval_status == "Approved") && ($user->admin_approval_status == "Approved"))
+            <a href="/leave_return/{{$user->id}}/edit"  data-toggle="tooltip" title="Leave return form">
+                <i class="fa fa-table fa-2"></i> 
+            </a>
+        @else
         @endif
     </td>
                 <td class="text-center"style="width: 15%" > {{ $user->admin_remark }} </td>

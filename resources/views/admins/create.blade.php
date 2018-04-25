@@ -4,23 +4,18 @@
 <div class="container">
    
        
-    <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2"> @include('layouts.errors')
+    <div id="signupbox" style=" margin-top:30px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2"> 
         
+        @if ( Session::has('flash_message') )
+            <div class="alert text-center {{ Session::get('flash_type') }}">
+              {{ Session::get('flash_message') }}
+            </div>
+         @endif
+
         <div class="panel panel-info">
             <div class="panel-heading">
                  <div class="panel-title">NEW EMPLOYEE</div>
             </div>
-
-
-            @if ( Session::has('flash_message') )
- 
-  <div class="alert text-center {{ Session::get('flash_type') }}">
-      <h3>{{ Session::get('flash_message') }}</h3>
-  </div>
-  
-@endif
-
-
 
 
 <div class="panel-body" >
