@@ -371,6 +371,9 @@ public function store_loan(Request $request, Loan $loan, User $user)
 		$loan->deduction_start = $request->deduction_start;
 		$loan->loan_status = $request->loan_status;
 		$loan->amount_approved = 0;
+		$loan->hr_status = "Pending";
+		$loan->mgt_status = "Pending";
+		$loan->gm_status = "Pending";
 				
 		$loan->user_id = $request->user()->id;
 		//$leave->save();

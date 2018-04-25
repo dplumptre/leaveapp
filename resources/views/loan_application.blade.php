@@ -7,7 +7,7 @@
     <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
           @include('layouts.errors')
 
-        <div class="panel panel-primary">
+        <div class="panel panel-info">
             <div class="panel-heading">
                  <div class="panel-title">NEW LOAN APPLICATION</div>
             </div>
@@ -30,6 +30,7 @@
               <input type="text" class="form-control" name="amount" placeholder="Amount">
               <div class="input-group-addon">.00</div>
           </div>
+          <em style="color: #ccc">Please do not include a comma</em>
       </div>
     </div>
 
@@ -61,6 +62,7 @@
               <input type="text" class="form-control" name="installment" placeholder="Amount">
               <div class="input-group-addon">.00</div>
           </div>
+          <em style="color: #ccc">Please do not include a comma</em>
       </div>
     </div>
 

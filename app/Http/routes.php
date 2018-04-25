@@ -174,9 +174,9 @@ Route::patch('/repayment_status/{users}', 'HomeController@repayment_status');
 
 
 Route::get('/admins/loan_applications', 'AdminsController@show_all_loan_applications');
-Route::get('/admins/{loan_id}/admin_loan_edit', 'AdminsController@admin_loan_edit');
+Route::get('/admins/{loan_id}/admin_loan_edit', 'adminsController@admin_loan_edit');
 
-Route::patch('/admins/{users}/admin_loan_approve', 'AdminsController@admin_loan_approve');
+Route::patch('/admins/{users}/admin_loan_approve', 'adminsController@admin_loan_approve');
 
 Route::patch('/admins/{users}/mgt_loan_approve', 'PayrollController@mgt_loan_approve');
 
