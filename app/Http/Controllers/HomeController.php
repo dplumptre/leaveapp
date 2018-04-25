@@ -413,8 +413,9 @@ public function store_loan(Request $request, Loan $loan, User $user)
 				 	$message->to($supervisor_email,'TFOLC LEAVE APP')->subject('Loan Request has been sent to you');
 				 });  			
 			
-		}
 		
+		}
+
 
 		return back();
 	}
@@ -435,9 +436,9 @@ public function store_loan(Request $request, Loan $loan, User $user)
 
 //Loan status of a particular User
    public function user_loan_status($users){      
-   	
 		$user_loan_status = Loan::where('user_id', '=', $users)->count();
         $users = Loan::where('user_id', '=', $users)->orderBy('id', 'desc')->get();
+
 	    return view('user_loan_status', compact('users', 'user_loan_status'));
     }
 
@@ -476,7 +477,6 @@ public function loan_info($loan_id)
 public function loan_edit($loan_id)
 	{
 		$users = Loan::where('id', '=', $loan_id)->get();
-
         return view('/loan_edit', compact('users'));
 	}
 
@@ -500,12 +500,15 @@ public function loan_edit($loan_id)
 		$users->loan_status = $request->loan_status;
 				
 		$users->update();
-		$request->Session()->flash('message.content', 'Update was successfull!');
+		$request->Session()->flash('message.content', 'Loan update was successfull!');
 		$request->session()->flash('message.level', 'success');
 
         $user_id = Auth::user()->id; 
+
+	    $user_loan_status = Loan::where('user_id', '=', $user_id)->count();
         $users = Loan::where('user_id', '=', $user_id)->orderBy('id', 'desc')->get();
-	    return view('loan_status', compact('users'));
+
+	    return view('user_loan_status', compact('users', 'user_loan_status'));
 		
 
 	}
@@ -515,6 +518,8 @@ public function loan_edit($loan_id)
 
 	public function loan_delete(Loan $users){
 		$users->delete($users);
+		Session()->flash('message.content', 'Loan application was successfully deleted!');
+		session()->flash('message.level', 'success');
 		return redirect()->back();
 	}
 

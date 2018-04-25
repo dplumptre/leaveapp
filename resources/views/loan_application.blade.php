@@ -4,8 +4,8 @@
 <div class="container">
 
        
-    <div id="signupbox" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-          @include('layouts.errors')
+    <div id="signupbox" style=" margin-top:30px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+          <strong>@include('layouts.errors')</strong>
 
         <div class="panel panel-info">
             <div class="panel-heading">

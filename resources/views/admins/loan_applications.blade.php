@@ -3,15 +3,21 @@
 @extends('layouts.app')
 
 @section('content')
+
+<div class="container">
+    <div class="row">
+        <strong>@include('layouts.errors')</strong>  
+    </div>
+</div>
+
+
+
+
 <div class="container" style="background-color: white">
     <div class="row">
-        
-  @include('layouts.errors')
-
         <div class="panel-heading">
             <h4> <i class="fa fa-calendar fa-2x"  style="padding-right: 10px"></i> 
                 All Loan Applications
-                
             </h4>
         </div>
 
