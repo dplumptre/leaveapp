@@ -114,6 +114,8 @@
     @else
     
     <a href="/loan_edit/{{$user->id}}"   data-toggle="tooltip" title="Edit Loan Application"><i class="fa fa-edit fa-lg" style="color: blue"></i> </a>
+
+    <a href="/loan_delete/{{$user->id}}"   data-toggle="tooltip" title="Delete Loan Application"  onclick="javascript:return confirm('Are you sure to delete Loan Application')"  style="padding-left: 10px;"><i class="fa fa-trash fa-lg" style="color: blue"></i> </a>
     @endif
 </td>
 

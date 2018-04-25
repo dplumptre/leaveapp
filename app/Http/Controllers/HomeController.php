@@ -415,11 +415,8 @@ public function store_loan(Request $request, Loan $loan, User $user)
 			
 		}
 		
-		        $user_id = Auth::user()->id; 
-		        $users = Loan::where('user_id', '=', $user_id)->orderBy('id', 'desc')->get();
-			    return view('loan_status', compact('users'));
 
-		// return back();
+		return back();
 	}
 
 
@@ -439,9 +436,6 @@ public function store_loan(Request $request, Loan $loan, User $user)
 //Loan status of a particular User
    public function user_loan_status($users){      
    	
-        // $users = Loan::find($users);
-        // $user_id = Auth::user()->id; 
-        // $user_loan_status = Loan::where('user_id', '=', $user_id)->get();
 		$user_loan_status = Loan::where('user_id', '=', $users)->count();
         $users = Loan::where('user_id', '=', $users)->orderBy('id', 'desc')->get();
 	    return view('user_loan_status', compact('users', 'user_loan_status'));
@@ -509,14 +503,22 @@ public function loan_edit($loan_id)
 		$request->Session()->flash('message.content', 'Update was successfull!');
 		$request->session()->flash('message.level', 'success');
 
-		        $user_id = Auth::user()->id; 
-		        $users = Loan::where('user_id', '=', $user_id)->orderBy('id', 'desc')->get();
-			    return view('loan_status', compact('users'));
+        $user_id = Auth::user()->id; 
+        $users = Loan::where('user_id', '=', $user_id)->orderBy('id', 'desc')->get();
+	    return view('loan_status', compact('users'));
 		
-		// return redirect()->back();
-				//return view('admins.requests', compact('users'));
 
 	}
+
+
+
+
+	public function loan_delete(Loan $users){
+		$users->delete($users);
+		return redirect()->back();
+	}
+
+
 
 
 	public function repayment_status(Request $request, Loan $users)

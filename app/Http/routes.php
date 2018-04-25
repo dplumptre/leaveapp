@@ -167,7 +167,11 @@ Route::get('/user_loan_status/{users}', 'HomeController@user_loan_status');
 Route::get('/loan_info/{users}', 'HomeController@loan_info');
 
 Route::get('/loan_edit/{users}', 'HomeController@loan_edit');
+
+Route::get('loan_delete/{users}', 'HomeController@loan_delete');
+
 Route::patch('/update_loan_edit/{users}', 'HomeController@update_loan_edit');
+
 
 Route::patch('/complete_status/{users}', 'HomeController@complete_status');
 Route::patch('/repayment_status/{users}', 'HomeController@repayment_status');
