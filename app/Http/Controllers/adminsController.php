@@ -448,6 +448,9 @@ class AdminsController extends Controller
 	{
 		$users = Loan::where('id', '=', $loan_id)->get();
 
+
+
+
         return view('admins/admin_loan_edit', compact('users'));
 	}
 
@@ -455,16 +458,39 @@ class AdminsController extends Controller
 	public function admin_loan_approve(Request $request, Loan $users)
 		{
 			
+
+
+
+
+
 			$this->validate($request, [
 				'hr_status' => 'required',
 			]);
 
 			$users->hr_status = $request->hr_status;
 			$users->update();
-					$request->Session()->flash('message.content', 'Operation was carried successfully!');
+            $status  = $request->hr_status;
+			$user_id  = $request->user_id;
+			$userinfo = User::find($user_id);
+			$applicant_name  =  $userinfo->name;
+			$applicant_email =  $userinfo->email;
+
+			
+				
+				Mail::send('mail.loan_status_mail', array('applicant_name'=> $applicant_name,'status'=> $status), function($message) use ($applicant_email)
+				{
+					$message->to($applicant_email,'TFOLC LEAVE APP')->subject('Result of your Leave Application!');
+				});  
+
+
+
+
+
+
+
+					$request->Session()->flash('message.content', 'Loan was successfully approved!');
 				  	$request->session()->flash('message.level', 'success');
 			return redirect('admins/loan_applications');
-				//return view('admins.requests', compact('users'));
 
 	}
 
