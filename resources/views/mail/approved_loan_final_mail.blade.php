@@ -17,7 +17,7 @@
 
                                 Hi {{ $applicant_name}},<br /><br />
                                
-                                Your loan has been <strong>{{ $status }}ed </strong>by the Human Resource unit.<br /><br />
+                                Your loan has been approved by the General Manager.<br /><br />
 
                                 Kindly sign into your enviroment to check your loan status using  the link below                             <br /><br />
  <a style='color:#ff7878;text-decoration:none;'  href="{{ asset('/login') }}" >Login</a> &nbsp;&nbsp;

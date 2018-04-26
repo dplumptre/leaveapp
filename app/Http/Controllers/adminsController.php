@@ -476,13 +476,28 @@ class AdminsController extends Controller
 			$applicant_email =  $userinfo->email;
 
 			
-				
+				//sending mail to applicant that hr approves or disapprove
 				Mail::send('mail.loan_status_mail', array('applicant_name'=> $applicant_name,'status'=> $status), function($message) use ($applicant_email)
 				{
-					$message->to($applicant_email,'TFOLC LEAVE APP')->subject('Result of your Leave Application!');
+					$message->to($applicant_email,'TFOLC LEAVE APP')->subject('Update on your Loan Application!');
 				});  
 
 
+				//sending mail to payroll manager that hr approves 
+
+				if($status = "approve"){
+
+					//get payroll email
+					$user = User::where('loan_roles_id',2)->first();
+					$payrollemail = $user->email;
+             
+
+				Mail::send('mail.payroll_reminder_to_approve_loan', array('applicant_name'=> $applicant_name), function($message) use ($payrollemail)
+				{
+					$message->to($payrollemail,'TFOLC LEAVE APP')->subject('Loan Application for approval!');
+				});  
+
+			     }
 
 
 

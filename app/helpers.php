@@ -89,15 +89,27 @@ function getAllowance($status){
 
 
 
+
+
+
   function getLoanRole($id)
   {
-    $Loan_role = Loan_role::where('id', '=',  $id)->first();
-    if (!$Loan_role) {
-      echo "None";
-    }
-    else {
-      echo $Loan_role->role;
-    }
+ 
+switch($id){
+  case 1:
+  echo "HR Admin";
+  break;
+  case 2: 
+  echo "Payroll Manager";
+  break;
+  case 3: 
+  echo "General Manager";
+  break;
+  default:
+  echo "None";
+
+}
+
   }
 
 

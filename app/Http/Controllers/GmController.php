@@ -27,8 +27,39 @@ class GmController extends Controller
 			$users->gm_status = $request->gm_status;
 			$users->amount_approved = $request->amount_approved;
 			$users->update();
-					$request->Session()->flash('message.content', 'Operation was carried successfully!');
-				  	$request->session()->flash('message.level', 'success');
+
+					  
+
+
+
+       //email
+
+
+	   $status  = $request->gm_status;
+	   $user_id  = $request->user_id;
+	   $userinfo = User::find($user_id);
+	   $applicant_name  =  $userinfo->name;
+	   $applicant_email =  $userinfo->email;
+
+
+
+				 
+
+
+
+//emails
+
+
+//sending mail to applicant that hr approves or disapprove
+Mail::send('mail.approved_loan_final_mail', array('applicant_name'=> $applicant_name, function($message) use ($applicant_email)
+{
+ $message->to($applicant_email,'TFOLC LEAVE APP')->subject('Update on your Loan Application!');
+});  
+
+
+$request->Session()->flash('message.content', 'Operation was carried out successfully!');
+$request->session()->flash('message.level', 'success');
+
 			return redirect('admins/loan_applications');
 				//return view('admins.requests', compact('users'));
 
