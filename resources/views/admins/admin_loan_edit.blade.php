@@ -4,6 +4,9 @@
 <div class="container">
 
        
+
+@if(Auth::user() && (Auth::user()->loan_roles_id == "1") || (Auth::user()->loan_roles_id == "2") || (Auth::user()->loan_roles_id == "3"))
+
     <div id="signupbox" style=" margin-top:30px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
           @include('layouts.errors')
 
@@ -105,7 +108,7 @@
   
 <div class="form-group"> <div class="controls col-md-4 "></div>
     <div class="controls col-md-12 ">
-        <input type="submit" name="create" value="Submit" class="btn btn-info btn btn-block" />
+        <input type="submit" name="create" value="Submit" class="btn btn-primary btn btn-block" />
     </div>
 </div> 
      
@@ -138,7 +141,7 @@
   
 <div class="form-group"> <div class="controls col-md-4 "></div>
     <div class="controls col-md-12 ">
-        <input type="submit" name="create" value="Submit" class="btn btn-info btn btn-block" />
+        <input type="submit" name="create" value="Submit" class="btn btn-primary btn btn-block" />
     </div>
 </div> 
      
@@ -184,7 +187,7 @@
   
 <div class="form-group"> <div class="controls col-md-4 "></div>
     <div class="controls col-md-12 ">
-        <input type="submit" name="create" value="Submit" class="btn btn-info btn btn-block" />
+        <input type="submit" name="create" value="Submit" class="btn btn-primary btn btn-block" />
     </div>
 </div> 
 
@@ -204,5 +207,31 @@
             </div>
         </div>
     </div>
+
+
+
+@else
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">ACCESS DENIED </div>
+
+                <div class="panel-body" align="center" style="color: red">
+                <div><img src="{{ asset('access_denied.jpg') }}"></div>
+                You do not have permission to view this page <br/>
+                    Please contact your Administrator
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@endif
+
+
+
 </div>
 @endsection

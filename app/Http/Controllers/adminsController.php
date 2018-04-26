@@ -18,7 +18,8 @@ class AdminsController extends Controller
 {
 	
 	public function __construct(){
-		$this->middleware('admin');
+		// $this->middleware('admin');
+		$this->middleware('admin', ['except' => ['show_all_loan_applications', 'admin_loan_edit']]);
 	}
 
 
@@ -460,7 +461,7 @@ class AdminsController extends Controller
 
 			$users->hr_status = $request->hr_status;
 			$users->update();
-					$request->Session()->flash('message.content', 'Loan was successfully approved!');
+					$request->Session()->flash('message.content', 'Operation was carried successfully!');
 				  	$request->session()->flash('message.level', 'success');
 			return redirect('admins/loan_applications');
 				//return view('admins.requests', compact('users'));

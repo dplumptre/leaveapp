@@ -24,7 +24,7 @@ class PayrollController extends Controller
 
 			$users->mgt_status = $request->mgt_status;
 			$users->update();
-					$request->Session()->flash('message.content', 'Loan was successfully approved!');
+					$request->Session()->flash('message.content', 'Operation was carried successfully!');
 				  	$request->session()->flash('message.level', 'success');
 			return redirect('admins/loan_applications');
 				//return view('admins.requests', compact('users'));

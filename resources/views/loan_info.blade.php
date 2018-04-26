@@ -11,7 +11,7 @@
           <div class="panel-heading">
            <div class="panel-title"> LOAN DETAILS  
             <a style="text-decoration: none;" href="/loan_status/{{$users[0]->user_id}}"  data-toggle="tooltip" title="View Loan History">
-              <span class=" btn-warning btn-sm" style="float: right;"> <?php getName($users[0]->user_id); ?> </span>
+              <span class=" btn-default btn-sm" style="float: right;"> <?php getName($users[0]->user_id); ?> </span>
             </a>
            
           </div>

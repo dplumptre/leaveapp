@@ -11,7 +11,7 @@
 </div>
 
 
-
+@if(Auth::user() && (Auth::user()->loan_roles_id == "1") || (Auth::user()->loan_roles_id == "2") || (Auth::user()->loan_roles_id == "3"))
 
 <div class="container" style="background-color: white">
     <div class="row">
@@ -132,10 +132,26 @@
     </div>
 </div>
 
+@else
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">ACCESS DENIED </div>
+
+                <div class="panel-body" align="center" style="color: red">
+                <div><img src="{{ asset('access_denied.jpg') }}"></div>
+                You do not have permission to view this page <br/>
+                    Please contact your Administrator
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-
-
+@endif
 
 
 @endsection
