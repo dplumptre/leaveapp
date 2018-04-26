@@ -477,6 +477,7 @@ class AdminsController extends Controller
 
 			
 				//sending mail to applicant that hr approves or disapprove
+	/*			
 				Mail::send('mail.loan_status_mail', array('applicant_name'=> $applicant_name,'status'=> $status), function($message) use ($applicant_email)
 				{
 					$message->to($applicant_email,'TFOLC LEAVE APP')->subject('Update on your Loan Application!');
@@ -498,7 +499,7 @@ class AdminsController extends Controller
 				});  
 
 			     }
-
+*/
 
 
 

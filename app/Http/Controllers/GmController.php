@@ -20,12 +20,27 @@ class GmController extends Controller
 		{
 			
 			$this->validate($request, [
-				'amount_approved' => 'required|digits_between:4,9',
+				'amount_approved' => 'digits_between:4,9',
 				'gm_status' => 'required',
 			]);
 
 			$users->gm_status = $request->gm_status;
 			$users->amount_approved = $request->amount_approved;
+
+
+
+			$status  = $request->gm_status;
+
+
+			if(  ($status == "Approved") && ($request->amount_approved =="") ){
+			 $request->Session()->flash('message.content', 'Amount Required!');
+			 $request->session()->flash('message.level', 'danger');
+			 return back();
+			}
+
+
+
+
 			$users->update();
 
 					  
@@ -35,7 +50,8 @@ class GmController extends Controller
        //email
 
 
-	   $status  = $request->gm_status;
+
+
 	   $user_id  = $request->user_id;
 	   $userinfo = User::find($user_id);
 	   $applicant_name  =  $userinfo->name;
@@ -49,13 +65,13 @@ class GmController extends Controller
 
 //emails
 
-
+/*
 //sending mail to applicant that hr approves or disapprove
 Mail::send('mail.approved_loan_final_mail', array('applicant_name'=> $applicant_name, function($message) use ($applicant_email)
 {
  $message->to($applicant_email,'TFOLC LEAVE APP')->subject('Update on your Loan Application!');
 });  
-
+*/
 
 $request->Session()->flash('message.content', 'Operation was carried out successfully!');
 $request->session()->flash('message.level', 'success');

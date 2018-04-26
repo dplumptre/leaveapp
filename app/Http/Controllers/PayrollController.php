@@ -39,7 +39,7 @@ class PayrollController extends Controller
 
   //emails
 
-
+/*
   //sending mail to applicant that hr approves or disapprove
   Mail::send('mail.loan_status_mail', array('applicant_name'=> $applicant_name,'status'=> $status), function($message) use ($applicant_email)
   {
@@ -63,7 +63,7 @@ class PayrollController extends Controller
 
    }
 
-
+*/
 
    $request->Session()->flash('message.content', 'Operation was carried out successfully!');
    $request->session()->flash('message.level', 'success');
