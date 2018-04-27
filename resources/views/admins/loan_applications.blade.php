@@ -42,8 +42,8 @@
                                         <th class="text-center">HR Status</th>
                                         <th class="text-center">MGT Head</th>
                                         <th class="text-center">GM Status</th>
-                                    @if(Auth::user() && (Auth::user()->loan_roles_id == "1"))
-                                        <th class="text-center">Not on Loan?</th>
+                                    @if(Auth::user() && (Auth::user()->loan_roles_id == "2"))
+                                        <th class="text-center">Repayed Loan?</th>
                                     @endif
                                     </tr>
                                 </thead>
@@ -87,12 +87,12 @@
                 <div class=<?php status1($user->gm_status); ?> > {{ $user->gm_status }} 
                 </a> 
                 </td>
- @if(Auth::user() && (Auth::user()->loan_roles_id == "1"))
+ @if(Auth::user() && (Auth::user()->loan_roles_id == "2"))
 <td class="text-center">
 
-    @if($user->repayment_status == "1")
-        <small><i class="fa fa-check-circle fa-sm" style="color: red"   data-toggle="tooltip" title="Payment Completed"></i> </small>
-    @else
+    @if(($user->repayment_status == "1") && ($user->complete_status == 1))
+        <small><i class="fa fa-check-circle fa-sm" style="color: green"   data-toggle="tooltip" title="Payment Completed"></i> </small>
+    @elseif(($user->complete_status == 1))
     <form class="form-inline" method="post" action="/repayment_status/{{$user->id}}">
                 {{ csrf_field() }}
                 {{ method_field('PATCH') }}
@@ -106,6 +106,8 @@
         </div>
         <button type="submit" class="btn btn-default btn-sm">Submit</button>
     </form>
+    @else
+   <span style="color: red"> *</span>
     @endif
 </td>
 @endif

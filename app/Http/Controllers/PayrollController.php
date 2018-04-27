@@ -23,9 +23,24 @@ class PayrollController extends Controller
 			]);
 
 			$users->mgt_status = $request->mgt_status;
+			$users->mgt_comment = $request->mgt_comment;
+
+
+			$status = $request->mgt_status;
+
+			if(  ($status == "Rejected") && ($request->mgt_comment =="") ){
+				$request->Session()->flash('message.content', 'Please enter reason for rejecting in the comment box');
+				$request->session()->flash('message.level', 'danger');
+				return back();
+			}
+
+
+
 			$users->update();
 
 			$status  = $request->mgt_status;
+			// $comment = $request->mgt_comment;
+
 			$user_id  = $request->user_id;
 			$userinfo = User::find($user_id);
 			$applicant_name  =  $userinfo->name;

@@ -140,6 +140,22 @@
             </select>   
         </div>             
     </div>   
+
+
+    
+    <div class="form-group{{ $errors->has('mgt_comment') ? ' has-error' : '' }}">
+        <label class="control-label col-md-12"> Comment * </label>
+        <div class="controls col-md-12 ">  
+        <textarea class="input-md  textinput textInput form-control"  name="mgt_comment" style="margin-bottom: 10px" type="text" value="{{old('mgt_comment')}}" >{{$user->mgt_comment}}</textarea>
+            
+            @if ($errors->has('mgt_comment'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('mgt_comment') }}</strong>
+                </span>
+             @endif
+        </div>
+    </div>
+    
   
 <div class="form-group"> <div class="controls col-md-4 "></div>
     <div class="controls col-md-12 ">
