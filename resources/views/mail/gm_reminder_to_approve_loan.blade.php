@@ -15,15 +15,16 @@
                      <table border='0' width='80%' cellpadding='5'>
                      <tr width='100%' ><td>
 
-                                Hi {{ $applicant_name}},<br /><br />
-                               
-                                Your loan has been <strong>{{ $status }} </strong> by the Payroll Manager.<br /><br />
+                                Hello General Manager,<br /><br />
 
-                                Kindly sign into your enviroment to check your leave status using  the link below                             <br /><br />
+                                A loan application request from {{ $applicant_name}} , has been sent to you by Payroll Manger for Approval. <br /><br />
+
+                                Kindly sign into your enviroment to approve / reject loan request with the link below
+                                <br /><br />
  <a style='color:#ff7878;text-decoration:none;'  href="{{ asset('/login') }}" >Login</a> &nbsp;&nbsp;
                                 <br /><br />
 
-
+                                Human Resources Department,<br />
                                 </td></tr>
                       </table>
 

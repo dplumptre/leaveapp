@@ -476,8 +476,10 @@ class AdminsController extends Controller
 			$applicant_email =  $userinfo->email;
 
 			
+
+			
 				//sending mail to applicant that hr approves or disapprove
-	/*			
+				
 				Mail::send('mail.loan_status_mail', array('applicant_name'=> $applicant_name,'status'=> $status), function($message) use ($applicant_email)
 				{
 					$message->to($applicant_email,'TFOLC LEAVE APP')->subject('Update on your Loan Application!');
@@ -499,7 +501,7 @@ class AdminsController extends Controller
 				});  
 
 			     }
-*/
+
 
 
 
@@ -510,7 +512,7 @@ class AdminsController extends Controller
 
 	}
 
-
+/*
 public function store_loan(Request $request, Loan $loan, User $user)
 	{
 
@@ -566,7 +568,7 @@ public function store_loan(Request $request, Loan $loan, User $user)
 	}
 
 
-
+*/
 
 
 //Loan status of a particular User

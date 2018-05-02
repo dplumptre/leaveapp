@@ -29,7 +29,7 @@
                                         <th class="text-center">HR </th>
                                         <th class="text-center">Payroll MGT</th>
                                         <th class="text-center">GM </th>
-                                        <th class="text-center"> HR </th>
+                                        <th class="text-center">MGT </th>
                                     </tr>
                                 </thead>
                                 
@@ -72,7 +72,7 @@
 
 <td class="text-center">
   @if($user->repayment_status == "1")
-       <i class="fa fa-check-circle fa-sm" style="color: blue"   data-toggle="tooltip" title="HR Loan Repayment confirmation"></i> 
+       <i class="fa fa-check-circle fa-sm" style="color: blue"   data-toggle="tooltip" title="MGT Loan Repayment confirmation"></i> 
   @endif
    
 </td>

@@ -19,7 +19,7 @@
            <table border='0' width='80%' cellpadding='5'>
            <tr width='100%' ><td>
 
-                      Hi {{ $applicant_name }},<br /><br />
+                      Good Day,<br /><br />
                       A loan application has been sent to you from {{ $applicant_name}}.<br /><br />
 
                       Kindly sign into your enviroment to accept / decline leave with the link below

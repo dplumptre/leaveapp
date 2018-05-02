@@ -65,13 +65,14 @@ class GmController extends Controller
 
 //emails
 
-/*
+
 //sending mail to applicant that hr approves or disapprove
-Mail::send('mail.approved_loan_final_mail', array('applicant_name'=> $applicant_name, function($message) use ($applicant_email)
+Mail::send('mail.approved_loan_final_mail', array('applicant_name'=> $applicant_name), function($message) use ($applicant_email)
 {
  $message->to($applicant_email,'TFOLC LEAVE APP')->subject('Update on your Loan Application!');
 });  
-*/
+
+
 
 $request->Session()->flash('message.content', 'Operation was carried out successfully!');
 $request->session()->flash('message.level', 'success');

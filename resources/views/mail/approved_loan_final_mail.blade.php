@@ -36,10 +36,10 @@
        </td>
        </tr>
        <tr><td cellpadding='10' style='height:50px; background:#A39161;color:white; font-size:11;'>
-       &nbsp;&nbsp; &copy;&nbsp;&nbsp; TFOLC LEAVE APP &nbsp;&nbsp;
-       <a style='color:#ff7878;text-decoration:none;'  href='".URL_PATH." >Home</a> &nbsp;&nbsp;
-       </td></tr>
-
-	</table>
-        </td></tr></table>
-         </body></html>
+        &nbsp;&nbsp; &copy;&nbsp;&nbsp; TFOLC LEAVE APP &nbsp;&nbsp;
+        <a style='color:#ff7878;text-decoration:none;'  href="{{ asset('/') }}">Home</a> &nbsp;&nbsp;
+        </td></tr>
+ 
+         </table>
+         </td></tr></table>
+          </body></html>

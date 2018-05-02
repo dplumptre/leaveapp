@@ -144,7 +144,7 @@ class HomeController extends Controller
 				if($supervisor_email == "" || empty($supervisor_email)){
 
 					$hremails = User::where('role', '=', 'admin')
-					->where('department', '=', 'Human Resource')->first();
+					->where('department', '=', 'HR & Admin Team')->first();
 
 
 					$supervisor_email = $hremails->email;
@@ -204,7 +204,7 @@ class HomeController extends Controller
 
 
 			$hremails = User::where('role', '=', 'admin')
-			->where('department', '=', 'Human Resource')->get();
+			->where('department', '=', 'HR & Admin Team')->get();
 
 
 
@@ -401,7 +401,7 @@ public function store_loan(Request $request, Loan $loan, User $user)
 			
 
 				 	$hremails = User::where('role', '=', 'admin')
-				 	->where('department', '=', 'Human Resource')->first();
+				 	->where('department', '=', 'HR & Admin Team')->first();
 
 
 				 	$supervisor_email = $hremails->email;
