@@ -8,6 +8,7 @@ use App\User;
 use App\Leave;
 use App\Loan;
 use App\Grade;
+use App\Loan_form;
 use App\Department;
 use App\Employeetype;
 use Mail;
@@ -336,15 +337,16 @@ public function uh_confirmation(Leave $users)
 //-----------------------------------------------------------------
 
 
-	public function loan_application(Request $request)
-	{
-		$user_id = Auth::user()->id; 	
-       
-		 $requests = User::where('id', '=', '$user_id')->get();
+public function loan_application(Request $request)
+{
+	$user_id = Auth::user()->id; 	
+   	$status = Loan_form::all();
 
-		$relievers = User::where('department', '=', $request->user()->department)->get();
-        return view('loan_application', compact('requests', 'relievers', 'allowance'));
-	}
+	 $requests = User::where('id', '=', '$user_id')->get();
+
+	$relievers = User::where('department', '=', $request->user()->department)->get();
+    return view('loan_application', compact('requests', 'relievers', 'allowance', 'status'));
+}
 
 
 
@@ -353,10 +355,6 @@ public function uh_confirmation(Leave $users)
 
 public function store_loan(Request $request, Loan $loan, User $user)
 	{
-
-
-
-		
 
 
 		$this->validate($request, [

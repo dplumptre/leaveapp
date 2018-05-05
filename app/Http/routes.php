@@ -157,6 +157,7 @@ Route::post('admins/application_search', 'adminsController@search');
 //------------------------------------------------------------------------------
 //LOAN APPLICATION
 //------------------------------------------------------------------------------
+
 Route::get('/loan_application', 'HomeController@loan_application');
 Route::post('/store_loan', 'HomeController@store_loan');
 
@@ -185,6 +186,10 @@ Route::patch('/admins/{users}/admin_loan_approve', 'adminsController@admin_loan_
 Route::patch('/admins/{users}/mgt_loan_approve', 'PayrollController@mgt_loan_approve');
 
 Route::patch('/admins/{users}/gm_loan_approve', 'GmController@gm_loan_approve');
+
+Route::get('/admins/loan_search', 'adminsController@loan_search');
+Route::post('/admins/loan_result', 'adminsController@loan_result');
+Route::get('/admins/loan_search_result', 'adminsController@loan_search_result');
 
 
 // });

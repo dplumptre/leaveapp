@@ -15,87 +15,190 @@
                 <div class="panel-body">
                            
 
-<form method="post" action="/store_loan">
-        {{ csrf_field() }}
+@if( (date("d") > 10) && ($status[0]->status  == 0) )
+  <!-- Application form Closes from the 1st to 10th of every month -->
+<p style="color: red; text-align: center"> 
+  You cannot apply for loan at this time. 
+  <br>You can only apply from 1st to 10th of every month 
+</p>
+
+@elseif( (date("d") > 10) && ($status[0]->status  == 1) )
+  <!-- Application form opened by admin even though the Date is less than 11th  by changing the status to 1 -->
+  
+
+  <form method="post" action="/store_loan">
+          {{ csrf_field() }}
 
 
 
 
-    <div class="form-group{{ $errors->has('leave_starts') ? ' has-error' : '' }}">
-        <label class="control-label col-md-12"> How much are you applying for? * </label>
-        <div class="form-group col-md-12 ">
+      <div class="form-group{{ $errors->has('leave_starts') ? ' has-error' : '' }}">
+          <label class="control-label col-md-12"> How much are you applying for? * </label>
+          <div class="form-group col-md-12 ">
 
-            <div class="input-group">
-              <div class="input-group-addon">₦</div>
-              <input type="text" class="form-control" name="amount" placeholder="Amount">
-              <div class="input-group-addon">.00</div>
-          </div>
-          <em style="color: #ccc">Please do not include a comma</em>
+              <div class="input-group">
+                <div class="input-group-addon">₦</div>
+                <input type="text" class="form-control" name="amount" placeholder="Amount">
+                <div class="input-group-addon">.00</div>
+            </div>
+            <em style="color: #ccc">Please do not include a comma</em>
+        </div>
       </div>
-    </div>
+
+
+      
+      <div class="form-group{{ $errors->has('purpose') ? ' has-error' : '' }}">
+          <label class="control-label col-md-12"> Purpose/Reason For the Loan * </label>
+          <div class="controls col-md-12 ">  
+          <textarea class="input-md  textinput textInput form-control"  name="purpose"placeholder="purpose for taking loan" style="margin-bottom: 10px" type="text" value="{{old('purpose')}}" required></textarea>
+              
+              @if ($errors->has('purpose'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('purpose') }}</strong>
+                  </span>
+               @endif
+          </div>
+      </div>
+      
+
+
+
+
+      <div class="form-group{{ $errors->has('leave_starts') ? ' has-error' : '' }}">
+          <label class="control-label col-md-12"> Amount to be deducted on a monthly basis * </label>
+          <div class="form-group col-md-12 ">
+
+              <div class="input-group">
+                <div class="input-group-addon">₦</div>
+                <input type="text" class="form-control" name="installment" placeholder="Amount">
+                <div class="input-group-addon">.00</div>
+            </div>
+            <em style="color: #ccc">Please do not include a comma</em>
+        </div>
+      </div>
+
+
+
+
+      <div class="form-group{{ $errors->has('leave_starts') ? ' has-error' : '' }}">
+          <label class="control-label col-md-12"> Deduction should take effect from * </label>
+          <div class="controls col-md-12 ">  
+              <input class="input-md  textinput textInput form-control" name="deduction_start"  style="margin-bottom: 10px" type="date" value="{{old('leave_starts')}}" required/>
+              @if ($errors->has('leave_starts'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('leave_starts') }}</strong>
+                  </span>
+               @endif
+          </div>
+      </div>
+
 
 
     
-    <div class="form-group{{ $errors->has('purpose') ? ' has-error' : '' }}">
-        <label class="control-label col-md-12"> Purpose/Reason For the Loan * </label>
-        <div class="controls col-md-12 ">  
-        <textarea class="input-md  textinput textInput form-control"  name="purpose"placeholder="purpose for taking loan" style="margin-bottom: 10px" type="text" value="{{old('purpose')}}" required></textarea>
-            
-            @if ($errors->has('purpose'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('purpose') }}</strong>
-                </span>
-             @endif
-        </div>
-    </div>
+  <input type="hidden" name="loan_status" value="Pending" readonly="">
+  <input type="hidden" name="user_id" value="<?php echo Auth::user()->id ?>" readonly="">
+
     
-
-
-
-
-    <div class="form-group{{ $errors->has('leave_starts') ? ' has-error' : '' }}">
-        <label class="control-label col-md-12"> Amount to be deducted on a monthly basis * </label>
-        <div class="form-group col-md-12 ">
-
-            <div class="input-group">
-              <div class="input-group-addon">₦</div>
-              <input type="text" class="form-control" name="installment" placeholder="Amount">
-              <div class="input-group-addon">.00</div>
-          </div>
-          <em style="color: #ccc">Please do not include a comma</em>
+  <div class="form-group"> <div class="controls col-md-4 "></div>
+      <div class="controls col-md-12 ">
+          <input type="submit" name="create" value="Apply For Loan" class="btn btn-primary btn btn-block" />
       </div>
-    </div>
+  </div> 
+           
+
+  </form>
+
+
+@else
+  <!-- Application form displays from the 11th of every month -->
+
+  <form method="post" action="/store_loan">
+          {{ csrf_field() }}
 
 
 
 
-    <div class="form-group{{ $errors->has('leave_starts') ? ' has-error' : '' }}">
-        <label class="control-label col-md-12"> Deduction should take effect from * </label>
-        <div class="controls col-md-12 ">  
-            <input class="input-md  textinput textInput form-control" name="deduction_start"  style="margin-bottom: 10px" type="date" value="{{old('leave_starts')}}" required/>
-            @if ($errors->has('leave_starts'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('leave_starts') }}</strong>
-                </span>
-             @endif
+      <div class="form-group{{ $errors->has('leave_starts') ? ' has-error' : '' }}">
+          <label class="control-label col-md-12"> How much are you applying for? * </label>
+          <div class="form-group col-md-12 ">
+
+              <div class="input-group">
+                <div class="input-group-addon">₦</div>
+                <input type="text" class="form-control" name="amount" placeholder="Amount">
+                <div class="input-group-addon">.00</div>
+            </div>
+            <em style="color: #ccc">Please do not include a comma</em>
         </div>
-    </div>
+      </div>
+
+
+      
+      <div class="form-group{{ $errors->has('purpose') ? ' has-error' : '' }}">
+          <label class="control-label col-md-12"> Purpose/Reason For the Loan * </label>
+          <div class="controls col-md-12 ">  
+          <textarea class="input-md  textinput textInput form-control"  name="purpose"placeholder="purpose for taking loan" style="margin-bottom: 10px" type="text" value="{{old('purpose')}}" required></textarea>
+              
+              @if ($errors->has('purpose'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('purpose') }}</strong>
+                  </span>
+               @endif
+          </div>
+      </div>
+      
 
 
 
-  
-<input type="hidden" name="loan_status" value="Pending" readonly="">
-<input type="hidden" name="user_id" value="<?php echo Auth::user()->id ?>" readonly="">
 
-  
-<div class="form-group"> <div class="controls col-md-4 "></div>
-    <div class="controls col-md-12 ">
-        <input type="submit" name="create" value="Apply For Loan" class="btn btn-primary btn btn-block" />
-    </div>
-</div> 
-         
+      <div class="form-group{{ $errors->has('leave_starts') ? ' has-error' : '' }}">
+          <label class="control-label col-md-12"> Amount to be deducted on a monthly basis * </label>
+          <div class="form-group col-md-12 ">
 
-</form>
+              <div class="input-group">
+                <div class="input-group-addon">₦</div>
+                <input type="text" class="form-control" name="installment" placeholder="Amount">
+                <div class="input-group-addon">.00</div>
+            </div>
+            <em style="color: #ccc">Please do not include a comma</em>
+        </div>
+      </div>
+
+
+
+
+      <div class="form-group{{ $errors->has('leave_starts') ? ' has-error' : '' }}">
+          <label class="control-label col-md-12"> Deduction should take effect from * </label>
+          <div class="controls col-md-12 ">  
+              <input class="input-md  textinput textInput form-control" name="deduction_start"  style="margin-bottom: 10px" type="date" value="{{old('leave_starts')}}" required/>
+              @if ($errors->has('leave_starts'))
+                  <span class="help-block">
+                      <strong>{{ $errors->first('leave_starts') }}</strong>
+                  </span>
+               @endif
+          </div>
+      </div>
+
+
+
+    
+  <input type="hidden" name="loan_status" value="Pending" readonly="">
+  <input type="hidden" name="user_id" value="<?php echo Auth::user()->id ?>" readonly="">
+
+    
+  <div class="form-group"> <div class="controls col-md-4 "></div>
+      <div class="controls col-md-12 ">
+          <input type="submit" name="create" value="Apply For Loan" class="btn btn-primary btn btn-block" />
+      </div>
+  </div> 
+           
+
+  </form>
+
+
+@endif
+
+
+
 
                 </div>
             </div>

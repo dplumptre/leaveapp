@@ -587,8 +587,43 @@ public function store_loan(Request $request, Loan $loan, User $user)
 
 
 
+	public function loan_search()
+	{
+		$loan = Loan::all();
+		return view('admins/loan_search', compact('loan'));
+	}
 
 
+
+ public function loan_result(Request $request)
+    {
+    	$start = $request->search_from;
+    	$end = $request->search_to;
+    	// return $search_from;
+
+      $users = Loan::where('gm_status', '=', "approved")
+      				->where('mgt_status', '=', "approved")
+      				->where('hr_status', '=', "approved")
+      				->whereBetween('updated_at',[$start,$end])
+                    ->orderBy('updated_at', 'asc')->get();
+
+  
+      		$check = $users->count();
+      		if ($check > 0 ) {
+
+      		  return view('admins/loan_search_result', compact('users', 'start', 'end'));
+      		}
+
+    		else{
+
+    			$request->Session()->flash('message.content', 'No approved loans for the selected dates!');
+				  	$request->session()->flash('message.level', 'danger');
+    				return redirect()->back();
+    		}
+
+
+
+    }
 
 
 
