@@ -133,6 +133,7 @@ Route::patch('admins/{users}/admin_confirm', 'adminsController@admin_confirmatio
 
 
 
+
 //LEAVE
 Route::get('admins/requests', 'adminsController@show_all_leave_request');
 
@@ -190,6 +191,9 @@ Route::patch('/admins/{users}/gm_loan_approve', 'GmController@gm_loan_approve');
 Route::get('/admins/loan_search', 'adminsController@loan_search');
 Route::post('/admins/loan_result', 'adminsController@loan_result');
 Route::get('/admins/loan_search_result', 'adminsController@loan_search_result');
+
+Route::get('/admins/switch_form', 'adminsController@switch_form');
+Route::patch('/admins/{state}/activate', 'adminsController@activate');
 
 
 // });

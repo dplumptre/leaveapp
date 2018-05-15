@@ -69,6 +69,7 @@
                 <a href="/admins/departments">Departments</a>
                 <a href="/admins/grades">Grade Levels</a>
                 <a href="/admins/employee_type">Employee Types</a>
+                <a href="/admins/switch_form">Show / Hide Loan Form</a>
                 <a href="/admins/reset">RESET</a>
             </li>
         </ul>

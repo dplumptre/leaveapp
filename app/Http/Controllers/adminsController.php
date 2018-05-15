@@ -12,6 +12,7 @@ use App\Department;
 use App\Grade;
 use App\Employeetype;
 use App\Loan_role;
+use App\Loan_form;
 use Mail;
 
 class AdminsController extends Controller
@@ -593,39 +594,69 @@ public function store_loan(Request $request, Loan $loan, User $user)
 		return view('admins/loan_search', compact('loan'));
 	}
 
-
-
- public function loan_result(Request $request)
+	
+	
+	public function loan_result(Request $request)
     {
-    	$start = $request->search_from;
+		$start = $request->search_from;
     	$end = $request->search_to;
     	// return $search_from;
-
-      $users = Loan::where('gm_status', '=', "approved")
-      				->where('mgt_status', '=', "approved")
-      				->where('hr_status', '=', "approved")
-      				->whereBetween('updated_at',[$start,$end])
-                    ->orderBy('updated_at', 'asc')->get();
-
-  
-      		$check = $users->count();
-      		if ($check > 0 ) {
-
-      		  return view('admins/loan_search_result', compact('users', 'start', 'end'));
-      		}
-
-    		else{
-
-    			$request->Session()->flash('message.content', 'No approved loans for the selected dates!');
-				  	$request->session()->flash('message.level', 'danger');
-    				return redirect()->back();
-    		}
-
-
-
+		
+		$users = Loan::where('gm_status', '=', "approved")
+		->where('mgt_status', '=', "approved")
+		->where('hr_status', '=', "approved")
+		->whereBetween('updated_at',[$start,$end])
+		->orderBy('updated_at', 'asc')->get();
+		
+		
+		$check = $users->count();
+		if ($check > 0 ) {
+			
+			return view('admins/loan_search_result', compact('users', 'start', 'end'));
+		}
+		
+		else{
+			
+			$request->Session()->flash('message.content', 'No approved loans for the selected dates!');
+			$request->session()->flash('message.level', 'danger');
+			return redirect()->back();
+		}
+		
+		
+		
     }
+	
+	
+	
+	
+	
+		public function switch_form()
+		{
+			$form_status = Loan_form::All();
+			return view('admins/switch_form', compact('form_status'));
+		}
+
+
+public function activate(Request $request, Loan_form $state)
+		{
+
+			$this->validate($request, [
+				'status' => 'required',
+			]);
+
+			$state->status = $request->status;
+			$state->update();
+           
+			$request->Session()->flash('message.content', 'Change was successfully!');
+			$request->session()->flash('message.level', 'success');
+
+			return back();
+
+	}
 
 
 
+
+	
 
 }

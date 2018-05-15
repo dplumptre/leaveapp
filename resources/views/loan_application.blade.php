@@ -15,22 +15,19 @@
                 <div class="panel-body">
                            
 
-@if( (date("d") > 10) && ($status[0]->status  == 0) )
+@if( (date("d") > 10) && ($status[0]->status  == "OFF") )
   <!-- Application form Closes from the 1st to 10th of every month -->
 <p style="color: red; text-align: center"> 
   You cannot apply for loan at this time. 
   <br>You can only apply from 1st to 10th of every month 
 </p>
 
-@elseif( (date("d") > 10) && ($status[0]->status  == 1) )
-  <!-- Application form opened by admin even though the Date is less than 11th  by changing the status to 1 -->
+@elseif( (date("d") > 10) && ($status[0]->status  == "ON") )
+  <!-- Application form opened by admin even though the Date is more than 11th  by changing the status to ON -->
   
 
   <form method="post" action="/store_loan">
           {{ csrf_field() }}
-
-
-
 
       <div class="form-group{{ $errors->has('leave_starts') ? ' has-error' : '' }}">
           <label class="control-label col-md-12"> How much are you applying for? * </label>
