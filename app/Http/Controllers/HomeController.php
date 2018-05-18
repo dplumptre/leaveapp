@@ -326,6 +326,23 @@ public function uh_confirmation(Leave $users)
 
 
 
+//Delete Leave Application before any approval
+
+
+	public function leave_delete(Leave $users){
+		$users->delete($users);
+		Session()->flash('message.content', 'Leave application was successfully deleted!');
+		session()->flash('message.level', 'success');
+		return redirect()->back();
+	}
+
+
+
+
+
+
+
+
 
 
 

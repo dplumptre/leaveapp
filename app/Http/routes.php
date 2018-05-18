@@ -40,6 +40,7 @@ Route::get('/status/{users}', 'HomeController@status');
 Route::get('/apply', 'HomeController@application');
 Route::post('/apply', 'HomeController@store_application');
 
+Route::get('leave_delete/{users}', 'HomeController@leave_delete');
 
 Route::get('/leave_return/{users}/edit', 'HomeController@leave_return');
 Route::patch('/leave_return/{users}', 'HomeController@leave_return_update');
