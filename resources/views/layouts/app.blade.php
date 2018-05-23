@@ -98,16 +98,17 @@
             <li>               
                 <a href="/admins/requests" data-toggle="tooltip" title="View all Leave request">Leave Applications</a>
                 <a href="/admins/loan_applications" data-toggle="tooltip" title="View all Loan Applications">Loan Applications</a>
+
+    <a href="/admins/loan_search" data-toggle="tooltip" title="Search and Print Loans"> 
+        Print Loan Form</a>
+    
+         
+
             </li>
         </ul>
     </li>
 
           <li><a href="/admins/return" data-toggle="tooltip" title="View all Leave request"> Leave Return Details</a></li>
-
-     <li><a href="/admins/loan_search" data-toggle="tooltip" title="Search and Print Loans"> 
-        Print Form</a>
-    </li>
-         
 
 <script>
     $(document).ready(function(){
@@ -152,13 +153,18 @@
 
 <!-- This link is for those who can manage loan -->
 
-@if(Auth::user() && (Auth::user()->loan_roles_id == "1") || (Auth::user()->loan_roles_id == "2") || (Auth::user()->loan_roles_id == "3"))
-    <li><a href="/admins/loan_applications" data-toggle="tooltip" title="View all Loan Applications"> 
-        Loan Applications</a>
-    </li>
-     <li><a href="/admins/loan_search" data-toggle="tooltip" title="Search and Print Loans"> 
-        Print Form</a>
-    </li>
+@if(Auth::user() && Auth::user()->loan_roles_id == "2")
+<li><a href="/admins/loan_applications" data-toggle="tooltip" title="View all Loan Applications"> 
+    View Loan Applications</a>
+</li>
+<li><a href="/admins/loan_search" data-toggle="tooltip" title="Search and Print Loans">  
+    Print Loan Forms</a>
+</li>
+
+@elseif(Auth::user() && Auth::user()->loan_roles_id == "2"  || Auth::user()->loan_roles_id == "3")
+<li><a href="/admins/loan_applications" data-toggle="tooltip" title="View all Loan Applications"> 
+    View Loan Applications</a>
+</li>
 
 @endif
 <!-- End of Loan link-->
