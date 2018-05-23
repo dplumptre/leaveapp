@@ -16,10 +16,10 @@
                  @endif
 @if(Auth::user())                                 
 <a href="{{ url('/apply') }}" data-toggle="tooltip" title="Apply For leave">
-   <div style="margin:30px 0px 30px 0px "class="col-md-4"><i class="fa  fa-5x fa-pencil-square-o "></i> <br /> LEAVE APPLICATION</div>
+   <div style="margin:30px 0px 30px 0px "class="col-md-4"><i class="fa  fa-5x fa-pencil-square-o "></i> <br /> APPLY FOR LEAVE </div>
 </a>
 <a href="/loan_application"}}" data-toggle="tooltip" title="Apply For Loan"> 
-   <div style="margin:30px 0px 30px 0px "class="col-md-4"><i class="fa  fa-5x fa-credit-card "></i> <br /> LOAN APPLICATION </div>
+   <div style="margin:30px 0px 30px 0px "class="col-md-4"><i class="fa  fa-5x fa-credit-card "></i> <br /> APPLY FOR LOAN  </div>
 </a>
 
 <a href="/profile/{{ Auth::user()->id }}" data-toggle="tooltip" title="View/Edit Your Profile"> 

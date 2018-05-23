@@ -20,7 +20,7 @@ class AdminsController extends Controller
 	
 	public function __construct(){
 		// $this->middleware('admin');
-		$this->middleware('admin', ['except' => ['show_all_loan_applications', 'admin_loan_edit']]);
+		$this->middleware('admin', ['except' => ['show_all_loan_applications', 'admin_loan_edit', 'loan_search', 'loan_result']]);
 	}
 
 

@@ -17,7 +17,7 @@
 
             
             <div class="form-group{{ $errors->has('search_from') ? ' has-error' : '' }}">
-              <label class="control-label col-md-12"> search_from * </label>
+              <label class="control-label col-md-12"> Search From * </label>
               <div class="controls col-md-12 ">  
                 <input class="input-md  textinput textInput form-control" name="search_from"  style="margin-bottom: 10px" type="date" value="{{old('search_from')}}" required/>
                 @if ($errors->has('search_from'))
@@ -30,7 +30,7 @@
 
 
             <div class="form-group{{ $errors->has('search_to') ? ' has-error' : '' }}">
-              <label class="control-label col-md-12"> search_to * </label>
+              <label class="control-label col-md-12"> Search To * </label>
               <div class="controls col-md-12 ">  
                 <input class="input-md  textinput textInput form-control" name="search_to"  style="margin-bottom: 10px" type="date" value="{{old('search_to')}}" required/>
                 @if ($errors->has('search_to'))
