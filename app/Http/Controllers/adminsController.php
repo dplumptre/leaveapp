@@ -308,7 +308,15 @@ class AdminsController extends Controller
 	}
 
 	public function delete_user(User $user){
-		    //$users = User::find($user);
+			//$users = User::find($user);
+			
+
+			
+		$leave = Leave::where('user_id','=',$user->id);
+		$leave->delete();
+		
+		$loan = Loan::where('user_id','=',$user->id);
+		$loan->delete();
 
 		$user->delete($user);
 		return redirect('admins/users');
