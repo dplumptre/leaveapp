@@ -77,12 +77,10 @@
     </div>
 
 
-<!-- Displays only when Payroll manager rejects -->
 
-@if($user->mgt_status == "Rejected")
   
     <div class="form-group{{ $errors->has('mgt_comment') ? ' has-error' : '' }}">
-        <label class="control-label col-md-12"> Reason for rejecting </label>
+        <label class="control-label col-md-12"> Payroll Manager Comment </label>
         <div class="controls col-md-12 ">  
         <textarea class="input-md  textinput textInput form-control"  name="mgt_comment" style="margin-bottom: 10px" type="text" value="{{old('mgt_comment')}}" readonly>{{$user->mgt_comment}}</textarea>
             
@@ -95,7 +93,6 @@
     </div>
     
 
-@endif
 
 
 

@@ -77,7 +77,7 @@ I <em class="info" style="color: red; padding-right: 10px"> {{ Auth::user()->nam
          <div id="div_id_terms" class="checkbox ">
             <label for="returnee_signature" class=" requiredField">
                 <input class="input-ms checkboxinput" id="returnee_signature" name="returnee_signature" style="margin-bottom: 10px;" align="center" type="checkbox" value="{{ Auth::user()->email }}"  required />
-                          <em class="info" style="color: red; padding-right: 10px">Tick this box to append your signature and agree to the terms and condition. <br></em> 
+                          <em class="info" style="color: red; padding-right: 10px">Tick this box to confirm resumption <br></em> 
 
             @if ($errors->has('returnee_signature'))
                 <span class="help-block">
