@@ -7,7 +7,7 @@
         
         <div class="panel panel-info">
             <div class="panel-heading">
-                 <div class="panel-title">ADD NEW DEPARTMENT</div>
+                 <div class="panel-title">Edit DEPARTMENT</div>
             </div>
 
 
@@ -18,15 +18,21 @@
                  @endif
             </div>
 
-            
-<form method="post" action="/admins/new_dept">
-        {{ csrf_field() }}
-         
+
+
+  
+
+
+
+        <form action="{{ route('admin.update.department', $data->id) }}" method="post">
+                <input type="hidden" name="_method" value="PUT">
+                {{ csrf_field() }}  
+
                   
     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
         <label class="control-label col-md-4"> Name of Department </label>
         <div class="controls col-md-8 ">  
-            <input class="input-md  textinput textInput form-control" id="name" name="name" placeholder="Enter Name of Department" style="margin-bottom: 10px" type="text" />
+            <input class="input-md  textinput textInput form-control" name="name" value="{{ $data->name }}"placeholder="Enter Name of Department" style="margin-bottom: 10px" type="text" />
             @if ($errors->has('name'))
                 <span class="help-block">
                     <strong>{{ $errors->first('name') }}</strong>
@@ -36,21 +42,10 @@
     </div>
 
 
-    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-        <label class="control-label col-md-4"> Slug </label>
-        <div class="controls col-md-8 ">  
-            <input class="input-md  textinput textInput form-control" id="name" name="slug" placeholder="Enter Name of Department" style="margin-bottom: 10px" type="text" />
-            @if ($errors->has('slug'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('slug') }}</strong>
-                </span>
-             @endif
-        </div>
-    </div>
 
      <div class="form-group"> <div class="controls col-md-4 "></div>
         <div class="controls col-md-8 ">
-            <input type="submit" name="create" value="Add New Department" class="btn btn-primary btn btn-info" />
+            <input type="submit" name="create" value="Edit Department" class="btn btn-primary btn btn-info" />
         </div>
     </div> 
 

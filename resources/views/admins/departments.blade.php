@@ -21,6 +21,7 @@
                                     <tr>
                                         <th class="text-center"></th>
                                         <th class="text-center">Departments</th>
+                                        <th class="text-center">Slug</th>
                             <th class="text-center"><a href="/admins/add_dept" data-toggle="tooltip" title="Add New Department"> 
                                <i class="fa fa-plus-circle fa-2x"></i> 
                                     </tr>
@@ -33,7 +34,13 @@
           <tr>
                 <td class="text-center">{{$rows = $rows + 1 }}</td>
                 <td class="text-center">{{ $department->name }}</td>
+                <td class="text-center">{{ $department->slug }}</td>
                 <td class="text-center">
+
+                        <a href="/admins/edit-department/{{$department->id}}"  data-toggle="tooltip" title="Edit Department">
+                            <i class="fa fa-edit fa-2" style="color: red"></i> 
+                    </a>
+
     <a href="/admins/{{$department->id}}/delete_dept" onclick="javascript:return confirm('Are you sure to delete department?')"  data-toggle="tooltip" title="Delete Department">
             <i class="fa fa-trash fa-2" style="color: red"></i> 
     </a>

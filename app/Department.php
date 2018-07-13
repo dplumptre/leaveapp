@@ -8,10 +8,14 @@ class Department extends Model
 {
     
  protected $fillable = array(		
-			'name',
+			'name','slug'
         );
 
 
-
+        public function users()
+        {
+           return $this->hasMany(User::class);
+        }
+        
 
 }

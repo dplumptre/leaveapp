@@ -144,8 +144,10 @@ class HomeController extends Controller
 
 				if($supervisor_email == "" || empty($supervisor_email)){
 
+
+					$d = Department::where('slug','admin')->first();
 					$hremails = User::where('role', '=', 'admin')
-					->where('department', '=', 'HR & Admin Team')->first();
+					->where('department_id', '=', $d->id)->first();
 
 
 					$supervisor_email = $hremails->email;
@@ -203,9 +205,9 @@ class HomeController extends Controller
            'signature' => 'required',
 			]);
 
-
+			$d = Department::where('slug','admin')->first();
 			$hremails = User::where('role', '=', 'admin')
-			->where('department', '=', 'HR & Admin Team')->get();
+			->where('department_id', '=', $d->id)->get();
 
 
 
@@ -413,10 +415,9 @@ public function store_loan(Request $request, Loan $loan, User $user)
 			 $applicant_email =  $users->email;
 
 
-			
-
+			 $d = Department::where('slug','admin')->first();
 				 	$hremails = User::where('role', '=', 'admin')
-				 	->where('department', '=', 'HR & Admin Team')->first();
+				 	->where('department_id', '=', $d->id)->first();
 
 
 				 	$supervisor_email = $hremails->email;

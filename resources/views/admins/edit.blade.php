@@ -48,11 +48,15 @@
 
     <div class="form-group">
         <label class="control-label col-md-4"> Department * </label>
+
+        
+
+
         <div class="controls col-md-8 ">  
-            <select class="input-md  textinput textInput form-control"  name="department"  style="margin-bottom: 10px">
-                <option value="{{ $user->department }}"> {{ $user->department }} </option>
+            <select class="inpsut-md  textinput textInput form-control"  name="department"  style="margin-bottom: 10px">
+                <option value="{{ $user->department_id }}"> {{ $user->departments->name }} </option>
                 @foreach($departments as $department) 
-                    <option value="{{ $department->name }}"> {{ $department->name }} </option>
+                    <option value="{{ $department->id }}"> {{ $department->name }} </option>
                 @endforeach
             </select>
         </div>           

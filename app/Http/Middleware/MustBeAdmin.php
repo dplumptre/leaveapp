@@ -17,7 +17,7 @@ class MustBeAdmin
     {
         $user = $request->user();
 
-        if ($user && $user->role == "admin") {
+        if ($user && $user->role == "admin"  || $user->loan_roles_id > 0) {
            
             return $next($request);
         }

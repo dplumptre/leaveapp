@@ -130,7 +130,7 @@
             <select class="input-md  textinput textInput form-control"  name="department" required  style="margin-bottom: 10px">
                 <option value=""> -- Select Department -- </option>
                 @foreach($departments as $department) 
-                    <option value="{{ $department->name }}"> {{ $department->name }} </option>
+                    <option value="{{ $department->id }}"> {{ $department->name }} </option>
                 @endforeach
             </select>
         </div>           

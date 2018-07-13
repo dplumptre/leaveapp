@@ -66,9 +66,9 @@ class PayrollController extends Controller
 
   if($status = "approve"){
 
-	  //get payroll email
-	  $user = User::where('loan_roles_id',3)->first();
-	  $gmemail = $user->email;
+	  $lu= Loan_role::where('slug','general-manager')->first();
+	  $ul= User::where('loan_roles_id',$lu->id)->first();
+	  $gmemail = $ul->email;
 
 
 	  Mail::send('mail.gm_reminder_to_approve_loan', array('applicant_name'=> $applicant_name,'status'=> $status), function($message) use ($gmemail)

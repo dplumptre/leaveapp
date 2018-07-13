@@ -62,6 +62,8 @@ Route::patch('/supervisor/{users}', 'HomeController@supervisor_update')->middlew
 
 //ADMIN
 
+Route::get('admins/action-man/{id}', 'adminsController@actionMan');
+
 Route::get('admins/create', 'adminsController@create');
 
 Route::post('admins/all_Users', 'adminsController@store_user');
@@ -72,6 +74,9 @@ Route::get('admins/departments', 'adminsController@view_dept');
 Route::get('admins/add_dept', 'adminsController@add_dept');
 
 Route::post('admins/new_dept', 'adminsController@store_dept');
+
+Route::get('admins/edit-department/{id}', 'adminsController@editDepartment')->name('admin.edit.department');
+Route::put('admins/update-department/{id}', 'adminsController@updateDepartment')->name('admin.update.department');
 
 
 //View, Add and Delete Grade Level

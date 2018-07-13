@@ -24,6 +24,48 @@ class AdminsController extends Controller
 	}
 
 
+
+	public function actionMan($id)
+	{
+
+
+
+
+		/*
+	Loan_role::create([
+	'role'  =>  'HR Admin',
+	'slug'  =>  'hr-admin'
+	]);
+
+	Loan_role::create([
+	'role' =>  'Payroll Management',
+	'slug'  => 'payroll-management'
+	]);
+
+	 Loan_role::create([
+	 'role' =>  'General Manager',
+	 'slug'  => 'general-manager'
+	 ]);
+
+
+	 */
+	 
+	$d = Department::find($id);
+	//return $d;
+	User::where('department',$d->name)->update(['department_id'=> $d->id]);
+	return $d->name." has been updated!";
+
+
+
+
+
+	
+	}
+
+
+
+
+
 	public function view_dept()
 	{
 		$departments = Department::all();
@@ -35,12 +77,15 @@ class AdminsController extends Controller
 		return view('admins/add_dept');
 	}
 
+
+
 	public function store_dept(Request $request)
 	{
 		$this->validate($request, ['name' => 'required|string|max:255', ]);
 
 		$dept = new Department;
 		$dept->name = $request->name;
+		$dept->slug = $request->slug;
 		
 		if ($dept->save()) {
 				$request->Session()->flash('message.content', 'Department was successfully added!');
@@ -48,6 +93,29 @@ class AdminsController extends Controller
 		}
 		return redirect('admins/departments');
 
+	}
+
+
+
+	public function editDepartment($id)
+	{
+		$data = Department::find($id);
+		return view('admins/edit-department',compact('data'));
+	}
+
+	public function updateDepartment(Request $request,$id)
+	{
+
+
+	$this->validate($request, [
+	'name' => 'required',
+]);
+
+
+   Department::find($id)->update($request->all());
+   $request->Session()->flash('message.content', 'Product updated successfully!');
+   $request->session()->flash('message.level', 'success');
+   return redirect('admins/departments');
 	}
 
 
@@ -218,14 +286,14 @@ class AdminsController extends Controller
 		$user->job_title = $request->job_title;
 		$user->entitled = $request->entitled;
 		$user->loan_roles_id = $request->loan_roles_id;
-
+        $user->department_id = $request->department;
 
 
 
 		if(isset($request->role) && $request->role == "supervisor"){
 			
 			$check = User::where('role', '=', 'supervisor')
-			->where('department', '=', $request->department)->count();
+			->where('department_id', '=', $request->department)->count();
 
 			if ($check > 0 ) {
 
@@ -268,7 +336,7 @@ class AdminsController extends Controller
 		if(isset($request->role) && $request->role == "supervisor"){
 
 			$check = User::where('role', '=', 'supervisor')
-						 ->where('department', '=', $request->department)->count();
+						 ->where('department_id', '=', $request->department)->count();
 			
 			if ($check > 0 ) {
 				$request->Session()->flash('message.content', 'A supervisor already exist in this department!');
@@ -296,6 +364,7 @@ class AdminsController extends Controller
 		$user->entitled = $request->entitled;
 		$user->balance = $request->balance;
 		$user->loan_roles_id = $request->loan_roles_id;
+		$user->department_id = $request->department;
 		
 		$user->update();
 
@@ -500,8 +569,9 @@ class AdminsController extends Controller
 				if($status = "approve"){
 
 					//get payroll email
-					$user = User::where('loan_roles_id',2)->first();
-					$payrollemail = $user->email;
+					$lu= Loan_role::where('slug','payment-management')->first();
+					$ul= User::where('loan_roles_id',$lu->id)->first();
+					$payrollemail = $ul->email;
              
 
 				Mail::send('mail.payroll_reminder_to_approve_loan', array('applicant_name'=> $applicant_name), function($message) use ($payrollemail)

@@ -25,9 +25,14 @@
                                         <th class="text-center">Days</th>
                                         <th class="text-center">Reason</th>
                                         <th class="text-center"><strike>N</strike>? </th>
+
+                                        @if(Auth::user()->loan_roles->slug !== 'hr-admin' )
+
+                                        @else
                                         <th class="text-center">Unit Head</th>
                                         <th class="text-center">HR</th>
                                         <th class="text-center">Action</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 
@@ -43,6 +48,14 @@
                 <td class="text-center"> {{ $request->working_days_no }}</td>
                 <td class="text-center"> {{ $request->reason }}</td>
                 <td class="text-center" style="width: 3%"> <small><?php   getAllowance($request->allowance) ?></small></td>
+
+
+
+                @if(Auth::user()->loan_roles->slug !== 'hr-admin' )
+
+                @else
+
+
                 <td class="text-center" style="width: 9%">
                     <a style="text-decoration: none; color: #ffffff" href="/supervisor/{{$request->id}}/edit"   data-toggle="tooltip" title="Unit Head Approval" style> 
                         <div class=<?php status($request->approval_status); ?> > {{ $request->approval_status }} 
@@ -63,7 +76,7 @@
     </a>
    
 </td>
-
+@endif
 </tr>
                     @endforeach
 

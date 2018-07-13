@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,7 +67,7 @@
 
         <ul class="dropdown-menu" role="menu">
             <li>               
-                <a href="/admins/create">Create New User</a>
+                <a href="/admins/create">Create New User  </a>
                 <a href="/admins/users">View All Users</a>
                 <a href="/admins/departments">Departments</a>
                 <a href="/admins/grades">Grade Levels</a>
@@ -127,7 +130,7 @@
         <ul class="dropdown-menu" role="menu">
             <li>               
                 <a href="{{ url('/apply') }}" data-toggle="tooltip" title="New Leave application">Apply For Leave</a>
-                <a href="{{ url('/loan_application') }}" data-toggle="tooltip" title="New Loan application">Apply For Loan</a>
+                <a href="{{ url('/loan_application') }}" data-toggle="tooltip" title="New Loan application">Apply For Loan  </a>
             </li>
         </ul>
     </li>
@@ -150,26 +153,50 @@
         </ul>
     </li>
 
-
+    
 <!-- This link is for those who can manage loan -->
 
-@if(Auth::user() && Auth::user()->loan_roles_id == "2")
+@if(Auth::user()  && Auth::user()->loan_roles_id > 0)
+
+
+@if( Auth::user()->loan_roles->slug == "general-manager"  )
+
+<li><a href="/admins/requests" data-toggle="tooltip" title="View all Leave request">All Leave Applications</a></li>
+
 <li><a href="/admins/loan_applications" data-toggle="tooltip" title="View all Loan Applications"> 
     View Loan Applications</a>
 </li>
 <li><a href="/admins/loan_search" data-toggle="tooltip" title="Search and Print Loans">  
     Print Loan Forms</a>
 </li>
-
-@elseif(Auth::user() && Auth::user()->loan_roles_id == "2"  || Auth::user()->loan_roles_id == "3")
+@else
 <li><a href="/admins/loan_applications" data-toggle="tooltip" title="View all Loan Applications"> 
     View Loan Applications</a>
 </li>
+<li><a href="/admins/loan_search" data-toggle="tooltip" title="Search and Print Loans">  
+    Print Loan Forms</a>
+</li>
+@endif
+
+@else
+
 
 @endif
+
 <!-- End of Loan link-->
 
- @else
+
+
+
+
+
+
+
+
+
+
+
+@else
     
 @endif
 

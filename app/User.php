@@ -13,18 +13,22 @@ public function leaves()
     }
 
 
-
+    public function departments()
+    {
+       return $this->belongsTo(Department::class,'department_id');
+    }
+    
 
 
     public function loans()
     {
-       return $this->belongsTo(App\loan::class);
+       return $this->belongsTo(Loan::class);
     }
 
 
     public function loan_roles()
     {
-      return $this->hasMany(App\LoanRole::class);
+      return $this->belongsTo(LoanRole::class,'loan_roles_id');
     }
 
 
