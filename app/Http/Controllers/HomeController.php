@@ -75,6 +75,9 @@ class HomeController extends Controller
     
     public function application(Request $request)
     {
+
+
+
     	$user_id = Auth::user()->id; 	
         $leave = Leave::where('user_id', '=', $user_id)
         				->where('allowance', '>', 0)
@@ -84,9 +87,11 @@ class HomeController extends Controller
         $allowance = $leave->count();
 
 		$requests = User::where('role', '=', 'supervisor')
-						->where('department', '=', $request->user()->department)->get();
+						->where('department_id', '=', $request->user()->department_id)->get();
 
-		$relievers = User::where('department', '=', $request->user()->department)->get();
+
+						
+		$relievers = User::where('department_id', '=', $request->user()->department_id)->get();
         return view('apply', compact('requests', 'relievers', 'allowance'));
 
     }
@@ -109,6 +114,8 @@ class HomeController extends Controller
 			]);
 
 
+		
+			$d = Department::find($request->user()->department_id);
 
 		$leave = new Leave;
 		$leave->leave_starts = $request->leave_starts;
@@ -126,7 +133,8 @@ class HomeController extends Controller
 				
 		$leave->user_id = $request->user()->id;
 		$leave->name = $request->user()->name;
-		$leave->department = $request->user()->department;
+		$leave->department = $d->name ;
+		$leave->department_id = $request->user()->department_id;
 		$leave->grade = $request->user()->grade;
 		//$leave->save();
 
@@ -180,9 +188,11 @@ class HomeController extends Controller
 
 	public function supervisor_approval(Request $request){
 
-		$uhDept = $request->user()->department;
+		$uhDept = $request->user()->department_id;
+
+	
 		
-		$requests = Leave::where('department', '=', "$uhDept")->orderBy('id', 'desc')->get();
+		$requests = Leave::where('department_id', '=', "$uhDept")->orderBy('id', 'desc')->get();
 
 	    return view('supervisor_approval', compact('requests'));
 	}

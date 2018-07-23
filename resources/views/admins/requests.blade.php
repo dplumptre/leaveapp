@@ -26,12 +26,13 @@
                                         <th class="text-center">Reason</th>
                                         <th class="text-center"><strike>N</strike>? </th>
 
-                                        @if(Auth::user()->loan_roles->slug !== 'hr-admin' )
 
-                                        @else
+                                        @if( Auth::user()->loan_roles_id > 0  )   
+                                        @if(Auth::user()->loan_roles->slug == 'hr-admin' )
                                         <th class="text-center">Unit Head</th>
                                         <th class="text-center">HR</th>
                                         <th class="text-center">Action</th>
+                                        @endif
                                         @endif
                                     </tr>
                                 </thead>
@@ -50,7 +51,7 @@
                 <td class="text-center" style="width: 3%"> <small><?php   getAllowance($request->allowance) ?></small></td>
 
 
-
+                @if( Auth::user()->loan_roles_id > 0  )  
                 @if(Auth::user()->loan_roles->slug !== 'hr-admin' )
 
                 @else
@@ -76,6 +77,7 @@
     </a>
    
 </td>
+@endif
 @endif
 </tr>
                     @endforeach

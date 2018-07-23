@@ -43,7 +43,7 @@
                 <td class="text-center">{{$rows = $rows + 1 }}</td>
                 <td class="text-center" style="width: 20%" ><a href="/supervisor/{{$request->id}}/edit"   data-toggle="tooltip" title="Click to Approve Leave"> {{ $request->name }}</a></td>
                 <td class="text-center" style="width: 12%" ><small>{{ date('d-M-Y ', strtotime($request->leave_starts)) }} </small></td>
-                <td class="text-center" style="width: 12%" ><small>{{ date('d-M-Y ', strtotime($request->leave_ends)) }} </small></td>
+                <td class="text-c.enter" style="width: 12%" ><small>{{ date('d-M-Y ', strtotime($request->leave_ends)) }} </small></td>
                 <td class="text-center" style="width: 15%" >{{ $request->reason }}</td>
                 <td class="text-center" style="width: 11%" >
                     <a href="/supervisor/{{$request->id}}/edit"   data-toggle="tooltip" title="Click to Approve Leave"> 

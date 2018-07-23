@@ -152,8 +152,11 @@
             </li>
         </ul>
     </li>
-
+@else
     
+@endif
+
+
 <!-- This link is for those who can manage loan -->
 
 @if(Auth::user()  && Auth::user()->loan_roles_id > 0)
@@ -184,21 +187,6 @@
 @endif
 
 <!-- End of Loan link-->
-
-
-
-
-
-
-
-
-
-
-
-
-@else
-    
-@endif
 
 </ul>
 
@@ -262,3 +250,9 @@
 
 </body>
 </html>
+
+
+
+
+
+

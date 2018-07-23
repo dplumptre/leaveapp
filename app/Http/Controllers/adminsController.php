@@ -50,9 +50,9 @@ class AdminsController extends Controller
 
 	 */
 	 
-	$d = Department::find($id);
+	$d = Department::where('slug',$id)->first();
 	//return $d;
-	User::where('department',$d->name)->update(['department_id'=> $d->id]);
+	Leave::where('department',$d->name)->update(['department_id'=> $d->id]);
 	return $d->name." has been updated!";
 
 
@@ -347,6 +347,14 @@ class AdminsController extends Controller
 
 		}
 
+
+       $d = Department::find($request->department);
+
+
+
+
+
+
 		$user->name = $request->name;
 		$user->email = $request->email;
 		$user->updated_at = $request->updated_at;
@@ -356,7 +364,7 @@ class AdminsController extends Controller
 		$user->mobile = $request->mobile;
 		$user->dob = $request->dob;
 		$user->marital_status = $request->marital_status;
-		$user->department = $request->department;
+		$user->department = $d->name;
 		$user->grade = $request->grade;
 		$user->employee_type = $request->employee_type;
 		$user->job_title = $request->job_title;
